@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3a0612">
+<title>Cofrade Granada</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Cofrade"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+:root{--m:#6b0f24;--m2:#3a0612;--o:#d4a23a;--o2:#f2cd6b;--bg:#f4e9d3;--c:#fffaf0;--t:#32181d;--mut:#8a6f68;--line:#6b0f2412;--sh:0 2px 10px #6b0f2418}
+@media(prefers-color-scheme:dark){:root{--bg:#1a0509;--c:#2b0b14;--t:#f7ecd8;--mut:#bb9d8f;--line:#ffffff14;--sh:0 2px 10px #0007}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--t);padding-bottom:104px;line-height:1.4}
+header{position:relative;text-align:center;color:#fff;padding:calc(18px + env(safe-area-inset-top)) 16px 20px;background:radial-gradient(120% 90% at 50% 0,#8c1d38 0,transparent 60%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpath d='M22 8v14M15 14h14' stroke='%23ffffff' stroke-opacity='.07' stroke-width='2'/%3E%3C/svg%3E"),linear-gradient(160deg,var(--m),var(--m2));border-radius:0 0 26px 26px;box-shadow:0 6px 18px #3a061255}
+.logo{width:44px;height:44px;margin:0 auto 6px;border-radius:50%;display:grid;place-items:center;font-size:1.4rem;color:#2a1a00;background:linear-gradient(135deg,var(--o2),var(--o));box-shadow:0 3px 10px #0004}
+h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:1.55rem;letter-spacing:.6px;font-weight:700}
+.sub{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--o2);margin-top:2px}
+#cd{display:inline-block;margin-top:10px;padding:5px 14px;border-radius:20px;background:#ffffff1c;border:1px solid #d4a23a66;color:var(--o2);font-size:.85rem}
+#ctl{position:absolute;right:10px;top:calc(10px + env(safe-area-inset-top))}
+#ctl button{border:1px solid #ffffff33;border-radius:12px;background:#ffffff1a;color:#fff;margin-left:5px;padding:4px 10px;font-size:.78rem;font-weight:600}
+#dias{position:sticky;top:0;z-index:6;display:flex;overflow-x:auto;gap:8px;padding:12px 12px 10px;scrollbar-width:none;background:linear-gradient(var(--bg) 70%,transparent)}
+#dias::-webkit-scrollbar{display:none}
+#dias button{flex:none;border:1.5px solid var(--line);border-radius:20px;padding:7px 14px;background:var(--c);color:var(--t);font-size:.82rem;font-weight:600;box-shadow:var(--sh)}
+#dias button.on{background:linear-gradient(135deg,var(--m),var(--m2));color:var(--o2);border-color:transparent}
+main{padding:6px 14px;max-width:640px;margin:auto}
+h2{display:flex;align-items:center;gap:10px;margin:22px 0 10px;font-family:Georgia,serif;font-size:1.08rem;color:var(--m)}
+h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--o),transparent)}
+@media(prefers-color-scheme:dark){h2{color:var(--o2)}}
+h3{font-size:.95rem;margin:14px 0 4px}
+.card{display:flex;align-items:center;gap:12px;padding:12px;margin-bottom:10px;background:var(--c);border-radius:18px;border:1px solid var(--line);box-shadow:var(--sh);transition:transform .15s,box-shadow .15s}
+.card:active{transform:scale(.985)}
+.card .i{flex:1;min-width:0;cursor:pointer}
+.card .i b{display:block;font-size:.98rem;line-height:1.25}
+.card .i small{display:block;margin-top:3px;color:var(--mut);font-size:.78rem}
+.hr{flex:none;width:54px;height:54px;border-radius:16px;display:grid;place-items:center;align-content:center;text-align:center;background:linear-gradient(145deg,var(--m),var(--m2));color:var(--o2);box-shadow:0 2px 6px #3a061244}
+.hr b{font-size:.95rem;line-height:1;letter-spacing:.3px}.hr span{font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:#fff;opacity:.75;margin-top:3px}
+.b{flex:none;width:38px;height:38px;border:0;border-radius:50%;background:var(--line);font-size:1.15rem;color:var(--o);display:grid;place-items:center;padding:0}
+.tag{display:inline-block;font-size:.66rem;font-weight:700;border-radius:20px;padding:2px 9px;margin-left:7px;vertical-align:2px;background:var(--o);color:#2a1a00}
+.tag.g{background:#8f7a74;color:#fff}.tag.r{background:#c0392b;color:#fff}
+.warn{background:#fff4d6;color:#5c4400;border-left:4px solid var(--o);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:.85rem}
+@media(prefers-color-scheme:dark){.warn{background:#3a2f12;color:#f3dfa0}}
+.aviso{font-size:.8rem;color:var(--mut);margin:8px 2px}
+.ins{display:flex;flex-wrap:wrap;gap:0;margin:8px 0 12px}.ins input,.ins select{flex:1 1 100%}
+select,input,.btn{width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--c);color:var(--t);margin:5px 0;font-size:.95rem;font-family:inherit;box-shadow:var(--sh)}
+input:focus,select:focus{outline:2px solid var(--o);border-color:transparent}
+.btn{background:linear-gradient(135deg,var(--m),var(--m2));color:#fff;border:0;font-weight:700;letter-spacing:.2px;cursor:pointer}
+.btn:active{transform:scale(.985)}
+.bar{height:12px;background:var(--line);border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--m),var(--o))}.bar.sm{height:6px;margin-top:8px}
+.row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line);font-size:.9rem}
+details.sec{background:var(--c);border-radius:18px;margin-bottom:12px;border:1px solid var(--line);box-shadow:var(--sh);overflow:hidden}
+details.sec summary{list-style:none;padding:15px 16px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
+details.sec summary::-webkit-details-marker{display:none}
+details.sec summary::after{content:"⌄";margin-left:auto;color:var(--o);font-size:1.3rem;transition:transform .2s}
+details.sec[open] summary::after{transform:rotate(180deg)}
+details.sec[open] summary{border-bottom:1px solid var(--line)}
+details.sec>div{padding:6px 16px 14px}details.sec ul{padding-left:18px;margin:8px 0}details.sec li{margin:8px 0}
+nav#tabs{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:620px;margin:0 auto;display:flex;padding:6px;border-radius:24px;background:linear-gradient(160deg,var(--m),var(--m2));box-shadow:0 8px 24px #3a061277;z-index:10}
+nav#tabs button{flex:1;border:0;background:none;color:#fff;padding:8px 2px 6px;border-radius:18px;font-size:.66rem;font-weight:600;opacity:.65;line-height:1.35;font-family:inherit}
+nav#tabs button.on{opacity:1;color:#2a1a00;background:linear-gradient(135deg,var(--o2),var(--o))}
+dialog{border:0;border-radius:24px;width:92%;max-width:560px;max-height:88vh;padding:0;overflow:auto;background:var(--c);color:var(--t);box-shadow:0 20px 50px #0007}
+dialog::backdrop{background:#1c050bcc;backdrop-filter:blur(3px)}
+.fh{padding:20px 20px 16px;color:#fff;background:radial-gradient(120% 120% at 100% 0,#8c1d38,transparent 60%),linear-gradient(160deg,var(--m),var(--m2))}
+.fh h3{margin:0;font-family:Georgia,serif;font-size:1.3rem;line-height:1.2}.fh small{color:var(--o2);letter-spacing:.5px}
+.fb{padding:6px 20px 18px}
+dl{margin:6px 0 12px}dt{margin-top:14px;font-size:.7rem;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--o)}dd{margin:4px 0;line-height:1.5}
+dd a{color:var(--m);font-weight:700}@media(prefers-color-scheme:dark){dd a{color:var(--o2)}}
+dd img{width:100%;border-radius:14px;margin-bottom:8px}
+svg{display:block}
+#ob{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;color:#fff;padding:calc(26px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom));background:radial-gradient(120% 80% at 50% 0,#8c1d38,transparent 60%),linear-gradient(160deg,var(--m),var(--m2))}
+.obc{flex:1;overflow:auto;text-align:center}.obc h2{color:#fff;justify-content:center;font-size:1.6rem}.obc h2::after{display:none}.obc p{opacity:.9;line-height:1.5}
+.logo.big{width:88px;height:88px;font-size:2.5rem;margin:34px auto 16px}
+.obl{text-align:left;margin-top:12px}.obl .card{color:var(--t)}
+.obf .btn{background:linear-gradient(135deg,var(--o2),var(--o));color:#2a1a00}.skip{background:none;border:0;color:#ffffffb0;width:100%;padding:12px;font-size:.9rem}
+.hero{background:linear-gradient(160deg,var(--m),var(--m2));color:#fff;border-radius:22px;padding:18px;box-shadow:0 8px 22px #3a061255;text-align:center;margin-bottom:12px}
+.hero small{letter-spacing:2px;color:var(--o2);font-size:.7rem;font-weight:700}.hero h3{font-family:Georgia,serif;font-size:1.3rem;margin:6px 0}
+.hero .big{font-size:2.3rem;font-weight:800;color:var(--o2);line-height:1.1}.hero p{margin:6px 0;opacity:.85;font-size:.85rem}.hero .btn{background:#ffffff24;box-shadow:none}
+.fact{background:var(--c);border:1px dashed var(--o);border-radius:16px;padding:12px 14px;font-size:.88rem;margin-bottom:12px}
+.btn.opt{background:var(--c);color:var(--t);border:1.5px solid var(--line);font-weight:600;text-align:left}
+.btn.opt.ok{background:#2e8b57;color:#fff}.btn.opt.ko{background:#c0392b;color:#fff}
+
+:root[data-theme=dark]{--bg:#1a0509;--c:#2b0b14;--t:#f7ecd8;--mut:#bb9d8f;--line:#ffffff14;--sh:0 2px 10px #0007}
+:root[data-theme=dark] h2{color:var(--o2)}:root[data-theme=dark] .warn{background:#3a2f12;color:#f3dfa0}:root[data-theme=dark] dd a{color:var(--o2)}
+:root[data-theme=light]{--bg:#f4e9d3;--c:#fffaf0;--t:#32181d;--mut:#8a6f68;--line:#6b0f2412;--sh:0 2px 10px #6b0f2418}
+:root[data-theme=light] h2{color:var(--m)}:root[data-theme=light] .warn{background:#fff4d6;color:#5c4400}:root[data-theme=light] dd a{color:var(--m)}
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+main.fi>*{animation:fi .3s both}
+#toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:#3a0612;color:#fff;border:1px solid var(--o);padding:10px 16px;border-radius:20px;font-size:.85rem;opacity:0;pointer-events:none;z-index:60;transition:.25s;max-width:88%;text-align:center;box-shadow:0 6px 18px #0006}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.alerta{background:linear-gradient(90deg,#c0392b,#e67e22);color:#fff;border-radius:16px;padding:12px 14px;margin:8px 0;font-size:.9rem;box-shadow:0 4px 14px #c0392b55;cursor:pointer}
+.seg{display:flex;gap:6px;background:var(--line);padding:4px;border-radius:16px;margin:6px 0 10px}
+.seg button{flex:1;border:0;background:none;color:var(--t);padding:9px;border-radius:12px;font-weight:700;font-size:.85rem;font-family:inherit}
+.seg button.on{background:linear-gradient(135deg,var(--m),var(--m2));color:var(--o2);box-shadow:var(--sh)}
+.tl{overflow-x:auto;margin:0 -14px;padding:0 14px 8px}
+.tli{position:relative;padding-bottom:6px}
+.tlh{position:relative;height:24px;border-bottom:1px solid var(--line);font-size:.68rem;color:var(--mut);font-weight:700}
+.tlh span{position:absolute;top:4px;transform:translateX(-50%)}
+.tlr{position:relative;height:46px;cursor:pointer}
+.tlr .lab{position:absolute;top:4px;font-size:.74rem;font-weight:700;white-space:nowrap;color:var(--t)}
+.bar2{position:absolute;top:22px;height:18px;border-radius:9px;background:linear-gradient(90deg,var(--m),#8c1d38);box-shadow:var(--sh)}
+.bar2.est{background:repeating-linear-gradient(90deg,var(--o) 0 8px,var(--o2) 8px 16px)}
+.nowl{position:absolute;top:0;bottom:0;width:2px;background:#c0392b;box-shadow:0 0 6px #c0392b}
+.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.qa button{border:1px solid var(--line);background:var(--c);color:var(--t);border-radius:18px;padding:12px 2px;font-size:1.5rem;box-shadow:var(--sh);font-family:inherit}
+.qa span{display:block;font-size:.66rem;font-weight:700;margin-top:3px;color:var(--mut)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tiles div{background:var(--c);border:1px solid var(--line);border-radius:18px;padding:12px 4px;text-align:center;box-shadow:var(--sh)}
+.tiles b{display:block;font-size:1.5rem;font-family:Georgia,serif;color:var(--m)}.tiles span{font-size:.68rem;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+:root[data-theme=dark] .tiles b{color:var(--o2)}@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .tiles b{color:var(--o2)}}
+.wk{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:2px 2px 8px}.wk::-webkit-scrollbar{display:none}
+.wd{flex:none;width:58px;border:1.5px solid var(--line);background:var(--c);color:var(--t);border-radius:18px;padding:8px 2px;box-shadow:var(--sh);font-family:inherit}
+.wd span{display:block;font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--mut)}.wd b{display:block;font-size:1.25rem;font-family:Georgia,serif}.wd small{font-size:.64rem;color:var(--o);font-weight:700}
+.wd.hoy{background:linear-gradient(160deg,var(--m),var(--m2));color:#fff;border-color:transparent}.wd.hoy span{color:var(--o2)}
+.sim{margin-top:14px}.sim summary{font-size:.8rem;color:var(--mut);cursor:pointer}
+.skip2{background:none;border:0;color:var(--mut);font-size:.8rem;padding:6px 0;margin-top:4px;font-family:inherit;text-decoration:underline}
+.fact .btn{margin-top:8px}
+.stamps{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:14px 0}
+.stp{aspect-ratio:1;border-radius:50%;border:2px dashed var(--line);background:none;color:var(--mut);font-size:.72rem;font-weight:700;padding:0;font-family:inherit}
+.stp.on{border:2px solid var(--o);background:radial-gradient(circle,var(--o2),var(--o));color:#2a1a00;transform:rotate(-8deg);box-shadow:inset 0 0 0 3px #fff7;font-size:1rem}
+.stars{display:flex;gap:2px}.st{border:0;background:none;font-size:1.8rem;color:var(--line);padding:0 2px}.st.on{color:var(--o)}
+textarea{width:100%;min-height:78px;padding:10px 12px;border-radius:14px;border:1.5px solid var(--line);background:var(--c);color:var(--t);font-family:inherit;font-size:.92rem;margin-top:6px;resize:vertical}
+.gi{padding:9px 0;border-bottom:1px dashed var(--line)}.gi b{color:var(--m)}:root[data-theme=dark] .gi b{color:var(--o2)}@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .gi b{color:var(--o2)}}
+.ck{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;color:var(--t);padding:10px 2px;border-bottom:1px dashed var(--line);font-size:.92rem;font-family:inherit}
+.ck i{flex:none;width:24px;height:24px;border-radius:8px;border:2px solid var(--o);display:grid;place-items:center;font-style:normal;font-size:.9rem;color:#2a1a00}.ck.on i{background:var(--o)}.ck.on span{opacity:.55;text-decoration:line-through}
+
+/* ===== Estética del logo: burdeos + oro ===== */
+:root{--gold:linear-gradient(135deg,#f6d77a,#c8932c)}
+body{background:radial-gradient(90% 50% at 50% 0,#6b0f2414,transparent 70%),var(--bg)}
+header{padding-bottom:18px;border-radius:0 0 30px 30px;border-bottom:2px solid var(--o);background:radial-gradient(100% 80% at 50% 0,#8c1d38 0,transparent 62%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M20 3l5 12 12 5-12 5-5 12-5-12-12-5 12-5z' fill='none' stroke='%23d4a23a' stroke-opacity='.13' stroke-width='1'/%3E%3C/svg%3E"),linear-gradient(170deg,#5a0b1f,#2c040d)}
+header::after{content:"";position:absolute;left:18%;right:18%;bottom:-2px;height:2px;background:linear-gradient(90deg,transparent,#f6d77a,transparent)}
+.emb{display:block;width:84px;height:96px;margin:0 auto 2px;filter:drop-shadow(0 3px 8px #0006)}
+.emb.big{width:150px;height:172px;margin:26px auto 12px}
+h1{font-size:2.1rem;letter-spacing:9px;text-transform:uppercase;font-weight:400;padding-left:9px;line-height:1.05;background:linear-gradient(180deg,#f9e29a,#d4a23a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gr{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:4px;font-family:Georgia,serif;font-size:.8rem;letter-spacing:6px;text-transform:uppercase;color:var(--o2)}
+.gr i{width:46px;height:1px;background:var(--o)}
+.sub{margin-top:8px;font-size:.66rem;opacity:.85}
+#cd{background:#0000002e;border:1px solid var(--o);color:var(--o2)}
+#dias button.on,.seg button.on,nav#tabs button.on{background:var(--gold);color:#2a1500;border-color:transparent}
+nav#tabs{border:1px solid #d4a23a99;background:linear-gradient(170deg,#5a0b1f,#2c040d)}
+h2{text-transform:uppercase;letter-spacing:2.5px;font-size:.88rem}
+h2::before{content:"❖";color:var(--o);font-size:.9rem;letter-spacing:0}
+.obc h2::before{display:none}
+.card{border-left:3px solid var(--o);position:relative}
+.hr{background:linear-gradient(160deg,#6b0f24,#3a0612);border:1px solid #d4a23a88}
+.hr b{color:var(--o2);font-family:Georgia,serif}
+.hero{background:radial-gradient(120% 90% at 50% 0,#8c1d38,transparent 60%),linear-gradient(165deg,#5a0b1f,#2c040d);border:1.5px solid var(--o);box-shadow:0 8px 22px #3a061266,inset 0 0 0 4px #3a0612,inset 0 0 0 5px #d4a23a66}
+.hero h3{letter-spacing:1px}
+.btn{background:linear-gradient(160deg,#7a1228,#3a0612);border:1px solid #d4a23a88;color:#f2cd6b}
+.fh{border-bottom:2px solid var(--o);background:radial-gradient(120% 120% at 100% 0,#8c1d38,transparent 60%),linear-gradient(165deg,#5a0b1f,#2c040d)}
+.fh h3{background:linear-gradient(180deg,#f9e29a,#d4a23a);-webkit-background-clip:text;background-clip:text;color:transparent}
+#ob{background:radial-gradient(120% 80% at 50% 0,#8c1d38,transparent 60%),linear-gradient(165deg,#5a0b1f,#2c040d)}
+.obf .btn{background:var(--gold);color:#2a1500;border:0}
+dt{color:var(--o)}
+.fact{border:1px solid var(--o);border-style:solid;background:linear-gradient(var(--c),var(--c)) padding-box}
+.stp.on{background:var(--gold)}
+.tl .bar2{background:linear-gradient(90deg,#6b0f24,#8c1d38)}
+.alerta{background:linear-gradient(90deg,#6b0f24,#a3263f);border:1px solid var(--o)}
+
+/* ===== v2: tiempo, mapa real, ruta, cultos ===== */
+.wxw{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:2px 2px 8px}.wxw::-webkit-scrollbar{display:none}
+.wxd{flex:none;width:62px;text-align:center;border:1.5px solid var(--line);background:var(--c);border-radius:18px;padding:8px 2px;box-shadow:var(--sh)}
+.wxd span{display:block;font-size:.62rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--mut)}
+.wxd b{display:block;font-size:1.4rem;line-height:1.3}.wxd small{display:block;font-size:.7rem;font-weight:700}
+.wxd em{display:block;font-style:normal;font-size:.68rem;color:var(--mut)}
+.wxd.rain{border-color:#3b82c4}.wxd.rain em{color:#3b82c4;font-weight:800}
+#lmap{height:420px;border-radius:18px;overflow:hidden;border:2px solid var(--o);margin:6px 0;background:var(--line)}
+.mk{width:30px;height:30px;border-radius:50%;background:#6b0f24;color:#f2cd6b;border:2px solid #d4a23a;display:grid;place-items:center;font-weight:700;font-size:.8rem;box-shadow:0 2px 6px #0006;font-family:Georgia,serif}
+.mk.kk{background:#d4a23a;color:#3a0612;border-color:#6b0f24}
+.leaflet-container{font-family:inherit}
+.ruta{background:var(--c);border:1px solid var(--line);border-left:4px solid var(--o);border-radius:16px;padding:12px 14px;margin:8px 0 12px;box-shadow:var(--sh)}
+.rs{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline;padding:6px 0}
+.rs b{font-family:Georgia,serif;color:var(--m);font-size:1.05rem}.rs small{flex-basis:100%;color:var(--mut);font-size:.75rem}.rs.w b{color:#c0392b}
+.rt{font-size:.74rem;color:var(--mut);padding-left:14px;border-left:2px dotted var(--o);margin-left:8px}
+:root[data-theme=dark] .rs b{color:var(--o2)}@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .rs b{color:var(--o2)}}
+.tunv{width:130px;margin:4px auto 10px;background:var(--line);border-radius:18px;padding:8px}.tunv svg{width:100%;height:auto}
+</style></head><body>
+<header><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="capg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a1228"/><stop offset="1" stop-color="#430815"/></linearGradient>
+<linearGradient id="gld" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d77a"/><stop offset="1" stop-color="#c8932c"/></linearGradient>
+<symbol id="emb" viewBox="0 0 200 230"><g fill="none" stroke="url(#gld)" stroke-linecap="round" stroke-linejoin="round">
+<path stroke-width="3.2" d="M26,162C22,126 40,104 58,94L58,84L68,84L68,74C86,66 96,50 100,18C104,50 114,66 132,74L132,84L142,84L142,94C160,104 178,126 174,162"/>
+<path stroke-width="1.4" d="M38,120L68,104L84,108L96,98M104,98L120,108L134,102L164,120"/></g>
+<g fill="url(#gld)"><path d="M40,152V114H44V110H48V114H52V110H56V114H60V110H64V114H68V152Z"/><path d="M71,152V128H88V152Z"/><path d="M76,128V112H82V128Z"/><path d="M132,152V114H136V110H140V114H144V110H148V114H152V110H156V114H160V152Z"/><path d="M116,152V130H132V152Z"/><path d="M162,152V126H172V152Z"/><ellipse cx="36" cy="140" rx="3" ry="12"/><ellipse cx="166" cy="146" rx="3" ry="10"/></g>
+<path d="M100,34L118,128C120,139 129,149 140,162L60,162C71,149 80,139 82,128Z" fill="url(#capg)" stroke="url(#gld)" stroke-width="2.6" stroke-linejoin="round"/>
+<g fill="url(#gld)"><ellipse cx="91" cy="113" rx="4" ry="2.2"/><ellipse cx="109" cy="113" rx="4" ry="2.2"/></g>
+<g id="half" fill="url(#gld)" stroke="none"><path d="M44,176C28,156 34,138 48,130C52,148 52,162 44,176Z"/><path d="M60,196C42,192 32,176 38,164C50,168 58,180 60,196Z"/></g>
+<g id="sc" fill="none" stroke="url(#gld)" stroke-width="4" stroke-linecap="round"><path d="M98,206C82,208 66,198 64,184C62,172 72,166 80,172C86,177 83,185 77,184"/><path d="M98,218C80,222 58,214 48,198" stroke-width="3"/></g>
+<g transform="translate(200,0) scale(-1,1)"><use href="#half"/><use href="#sc"/></g>
+<g fill="url(#gld)"><path d="M100,194C93,202 93,212 100,222C107,212 107,202 100,194Z"/><path d="M100,210C90,202 80,205 78,214C88,214 94,214 100,216Z"/><path d="M100,210C110,202 120,205 122,214C112,214 106,214 100,216Z"/></g></symbol></defs></svg><div id="ctl"><button onclick="cfg('th')" aria-label="Tema">🌓</button><button onclick="cfg('fs')">A+</button><button onclick="cfg('l')" id="lb">EN</button></div><svg class="emb" viewBox="0 0 200 230" aria-hidden="true"><use href="#emb"/></svg><h1>Cofrade</h1><div class="gr"><i></i>Granada<i></i></div><div class="sub">Semana Santa · 2027</div><div id="cd"></div></header>
+<div id="dias"></div><main id="main"></main><nav id="tabs"></nav><dialog id="dlg"></dialog>
+<script>
+/* ===== DATOS: edita aquí hermandades, fichas, mapa y consejos ===== */
+// [dia, nombre, salida, entrada, templo, Carrera de la Virgen, Puerta Catedral, titulares]
+// «—» = dato pendiente. Edita aquí; añade historia/túnica/marchas en EXTRA.
+const H=[
+[0,"La Borriquilla","—","—","—","18:40","~21:05","—"],
+[0,"Las Maravillas","17:20","—","Iglesia de San Pedro y San Pablo","20:20","—","Ntro. Padre Jesús de la Sentencia y María Santísima de las Maravillas"],
+[0,"La Santa Cena","17:15","—","—","19:15","21:10","—"],
+[0,"El Cautivo","18:00","~00:05","Iglesia del Sagrario","20:55","22:15","Ntro. Padre Jesús Cautivo y María Santísima de la Encarnación"],
+[0,"El Despojado","18:05","~23:55","Casa de hermandad (junto a San Emilio)","19:50","21:05","Ntro. Padre Jesús Despojado de sus Vestiduras, María Santísima del Dulce Nombre y San Juan Evangelista"],
+[1,"Cristo del Trabajo y Ntra. Sra. de la Luz","16:00","—","Iglesia del Corpus Christi (Zaidín)","18:30","20:35","Santísimo Cristo del Trabajo y Nuestra Señora de la Luz"],
+[1,"El Rescate","—","—","—","~20:00","22:00","—"],
+[1,"Los Dolores","17:15","—","Iglesia de San Pedro y San Pablo","—","—","Virgen de los Dolores"],
+[2,"La Lanzada","16:25","~01:00","Iglesia de Ntra. Sra. de los Dolores (Zaidín)","18:55","~20:20","Santísimo Cristo de la Lanzada y María Santísima de la Caridad"],
+[2,"El Vía Crucis","17:00","—","San Juan de los Reyes (Albaicín)","19:30","~20:55","Cristo de la Amargura (Vía Crucis) y Ntra. Sra. de los Favores"],
+[2,"La Esperanza","17:30","~23:10","Iglesia de San Gil y Santa Ana","19:55","~21:20","—"],
+[2,"La Cañilla (La Humildad)","18:40","~00:15","Iglesia de Santo Domingo","20:40","—","Señor de la Humildad y Dulce Nombre de Jesús"],
+[3,"Los Gitanos","16:00","~04:00","Iglesia del Sagrado Corazón (Gran Vía)","18:15","19:45","Santísimo Cristo del Consuelo y María Santísima del Sacromonte"],
+[3,"Los Estudiantes","17:00","—","Parroquia de los Santos Justo y Pastor","~19:10","—","Ntro. Señor de la Meditación y María Santísima de los Remedios"],
+[3,"Las Penas","—","—","—","—","—","—"],
+[3,"El Rosario","—","—","—","—","—","—"],
+[3,"El Nazareno","—","—","—","—","—","—"],
+[4,"La Concha","15:45","—","Monasterio de la Concepción (Albaicín)","19:00","20:15","Virgen de la Concepción y Ntro. Padre Jesús del Amor y la Entrega"],
+[4,"La Aurora","16:30","~01:00","Iglesia de San Miguel Bajo (Albaicín)","—","—","María Santísima de la Aurora y Ntro. Padre Jesús del Perdón"],
+[4,"Los Salesianos","16:45","01:45","Iglesia de María Auxiliadora","19:30","21:00","Santísimo Cristo de la Redención y Nuestra Señora"],
+[4,"La Estrella","17:15","—","Iglesia de San Cristóbal (Albaicín)","21:00","—","—"],
+[5,"Los Ferroviarios","16:00","—","—","19:50","—","—"],
+[5,"Las Chías","—","—","—","22:05","—","—"],
+[5,"Santo Entierro (Santo Sepulcro)","20:00","—","Iglesia de San Gil y Santa Ana","21:30","—","Hermandad del Santo Sepulcro"],
+[6,"Santa María de la Alhambra","17:00","—","Alhambra","20:55","—","—"],
+[7,"Los Facundillos","10:30","~14:40","Iglesia de Santo Domingo","11:10","12:20","Dulce Nombre de Jesús"],
+[7,"La Resurrección y Santa María del Triunfo","11:00","~17:30","Parroquia de San Miguel Arcángel (Zaidín)","12:30","14:00","Ntro. Señor de la Resurrección y Santa María del Triunfo"],
+[7,"El Resucitado","11:10","~15:05","Iglesia del Sagrario","13:00","14:35","Santísimo Cristo Resucitado y Nuestra Señora de la Alegría"]
+].map((a,i)=>({id:i+1,dia:a[0],n:a[1],s:a[2],e:a[3],t:a[4],c:a[5],k:a[6],ti:a[7]}));
+
+const PATCH={
+1:{s:"15:45",t:"Iglesia de San Andrés (Albaicín, calle Elvira)",ti:"Jesús en su Entrada en Jerusalén y Nuestra Señora de la Paz"},
+3:{t:"Iglesia de Santa Escolástica (Santo Domingo)",ti:"Santa Cena Sacramental y María Santísima de la Victoria"},
+7:{s:"17:25",t:"Parroquia de Santa María Magdalena",ti:"Nuestro Padre Jesús del Rescate"},
+10:{ti:"Nuestro Padre Jesús de la Amargura, María Santísima de las Lágrimas y Nuestra Señora de los Reyes (hermandad del Santo Vía Crucis y Nuestra Señora de los Favores)"},
+11:{ti:"Nuestro Padre Jesús del Gran Poder y Nuestra Señora de la Esperanza"},
+13:{ll:"Abadía del Sacromonte (se recoge de madrugada)"},
+15:{t:"Iglesia conventual del Santo Ángel Custodio (Cristo de San Agustín)",ti:"Santísimo Cristo de San Agustín, Jesús Nazareno de las Penas y Nuestra Madre y Señora de la Consolación"},
+16:{ti:"Nuestro Padre Jesús de las Tres Caídas y Nuestra Señora del Rosario en sus Misterios Dolorosos"},
+17:{ti:"Nuestro Padre Jesús Nazareno y María Santísima de la Merced"},
+21:{ti:"Nuestro Padre Jesús de la Pasión y María Santísima de la Estrella"},
+22:{t:"Iglesia de San Juan de Letrán (Los Pajaritos)",ti:"Santísimo Cristo de la Buena Muerte y Nuestra Señora del Amor y del Trabajo"},
+23:{t:"Monasterio de San Jerónimo (barrio del Boquerón)"},
+25:{t:"Iglesia de Santa María de la Alhambra",ti:"Nuestra Señora de las Angustias Coronada de Santa María de la Alhambra"},
+28:{ll:"Iglesia del Sagrario (sede canónica en Regina Mundi)"}
+};
+Object.entries(PATCH).forEach(([i,p])=>Object.assign(H[i-1],p));
+// Ficha ampliada por id (rellena a mano): {historia:"",tunica:"",marchas:"",foto:""}
+const EXTRA={
+1:{historia:"Su grupo escultórico de la Entrada en Jerusalén, junto al Vía Crucis albaicinero, inició la Semana Santa moderna de Granada en la década de 1910. Primera salida procesional en 1917."},
+3:{historia:"Cofradía fundada en el siglo XX con miembros de hermandades eucarísticas (las fuentes difieren entre 1926 y 1944). Sede en Santo Domingo (parroquia de Santa Escolástica).",tunica:"Túnica y capillo rojos de sarga, cíngulo blanco y capa blanca."},
+5:{historia:"Cofradía fundada el 13 de mayo de 1986. Su casa de hermandad está junto a la parroquia de San Emilio, donde se asentó en 1988."},
+9:{historia:"Cofradía fundada el 20 de noviembre de 1983; sus estatutos fueron aprobados el 25 de mayo de 1984 por el arzobispo de Granada."},
+13:{historia:"Fundada en 1939 (reglas aprobadas el 25 de junio de ese año). Su titular, el Cristo del Consuelo, es una talla de José Risueño del siglo XVII que se veneraba en la Abadía del Sacromonte como Cristo de las Cuevas. Primera salida en 1940. Se recoge de madrugada en la Abadía del Sacromonte.",tunica:"Túnica morada, capillo y fajín rojos (diputados de tramo con capas doradas)."},
+14:{historia:"Cofradía universitaria fundada en 1979, vinculada a la Hermandad de la Esclavitud del Santísimo Sacramento.",tunica:"Túnica burdeos de sarga, con capillo y cíngulo blancos."},
+15:{historia:"Procede de la Hermandad Sacramental del Cristo de San Agustín, fundada el 6 de agosto de 1680. Adquirió carácter penitencial en 1989 tras una reorganización."},
+17:{historia:"Hermandad de Nuestro Padre Jesús Nazareno y María Santísima de la Merced, fundada en 1981.",tunica:"Túnica y capillo morados, con cíngulo de esparto."},
+18:{historia:"Fundada en 1977 (primera salida en 1978). Abrió una nueva etapa de fundaciones en la Semana Santa granadina. Popularmente se la conoce como «la Concha».",tunica:"Túnica y capillo negros, con cíngulo blanco según una de las fuentes."},
+19:{historia:"Fundada en 1944. Es la cofradía de la Aurora del Albaicín; su Virgen procesiona bajo palio blanco con bordados en oro.",tunica:"Túnica, capa y capillo blancos, con fajín rojo."},
+20:{historia:"Hermandad nacida en el colegio de los Salesianos, fundada entre 1983 y 1984 según la fuente.",tunica:"Túnica y capa negras, con capillo y cíngulo azules."},
+21:{historia:"Cofradía fundada en 1979.",tunica:"Túnica y capillo negros, con fajín y capa de raso dorado."}
+};
+Object.assign(EXTRA,{
+1:{historia:"Cofradía fundada en 1947 en la iglesia de San Andrés. Su grupo de la Entrada en Jerusalén inició la Semana Santa moderna de Granada: su primera salida procesional fue en 1917. En 1999 se trasladó a la Iglesia del Servicio Doméstico por el mal estado de San Andrés y volvió a su sede en 2018. Sale el Domingo de Ramos con dos pasos.",tunica:"Antifaz y túnica azules, con capa blanca."},
+10:{historia:"Fundada en 1917, fue la primera hermandad adscrita a la recién creada Federación. Debe su nombre al tradicional Vía Crucis que organizaba al cerro del Aceituno. Sale desde San Juan de los Reyes, en el Albaicín, y es recomendable verla en la salida y en la vuelta por la Carrera del Darro."},
+11:{historia:"Real Hermandad y Cofradía de Nazarenos de Nuestro Padre Jesús del Gran Poder y Nuestra Señora de la Esperanza. Sale desde la iglesia de San Gil y Santa Ana, en Plaza Nueva."},
+15:{historia:"Procede de la Hermandad Sacramental del Cristo de San Agustín, fundada el 6 de agosto de 1680. Adquirió carácter penitencial en 1989 tras una reorganización. Sede en la iglesia conventual del Santo Ángel Custodio."},
+22:{historia:"Heredera de una hermandad del siglo XVIII que procesionaba rezando el rosario. La actual fue fundada en 1953 por los trabajadores ferroviarios y reorganizada en 1981. Es una hermandad de barrio (Los Pajaritos), ligada a Renfe, y sus faroles son su seña de identidad."},
+23:{historia:"Hermandad de carácter de barrio, sobria, que sale del monasterio de San Jerónimo, en el Boquerón. Es famosa por liberar un preso cada Semana Santa y por las «chías» que abren el cortejo."},
+25:{historia:"Fundada en 1928, con sede en la iglesia de Santa María de la Alhambra. Su Virgen de las Angustias recibió la coronación canónica el 21 de mayo de 2000. Es la única procesión del Sábado Santo."}
+});
+/* ===== Datos completados (guía de Canal Sur 2026, solo valores explícitos; revisar con la Federación) ===== */
+const P2={8:{c:"19:45",k:"21:20"},14:{e:"21:45",k:"20:40"},
+15:{s:"18:40",t:"Iglesia de San Matías",c:"19:50",k:"21:15",ti:"Nuestro Padre Jesús de la Paciencia y María Santísima de las Penas"},
+16:{c:"21:40",t:"Iglesia de Santo Domingo (Realejo)"},17:{s:"20:30",t:"Iglesia de San José (Carmelitas Descalzas)"},19:{c:"20:15",k:"21:50"}};
+Object.entries(P2).forEach(([i,p])=>Object.assign(H[i-1],p));
+const EX15=EXTRA[15];EXTRA[15]={};
+[[1,"Huerto de los Olivos","16:10","22:10","Iglesia de las Comendadoras de Santiago","18:15","19:45","Misterio del Huerto de los Olivos y Virgen de la Amargura Coronada"],
+[1,"San Agustín","20:30","—","Iglesia conventual del Santo Ángel Custodio","21:10","—","Santísimo Cristo de San Agustín y Nuestra Señora de la Consolación"],
+[5,"Los Escolapios","—","—","Iglesia de San José de Calasanz","19:50","21:20","Santísimo Cristo de la Expiración y Nuestra Señora del Mayor Dolor"],
+[5,"Los Favores","—","—","Iglesia de San Cecilio","—","—","Santísimo Cristo de los Favores y María Santísima de la Misericordia"],
+[5,"Tres de la Tarde","13:45","—","Iglesia de Santo Domingo","19:10","20:40","Nuestra Señora de la Soledad"],
+[4,"El Silencio","17:15","—","Iglesia de San Pedro y San Pablo","—","—","Santísimo Cristo de la Misericordia (obra de José de Mora)"]
+].forEach(a=>H.push({id:H.length+1,dia:a[0],n:a[1],s:a[2],e:a[3],t:a[4],c:a[5],k:a[6],ti:a[7]}));
+EXTRA[H.find(h=>h.n==="San Agustín").id]=EX15;
+const PUNTOS=[
+ {n:"Carrera de la Virgen (inicio Carrera Oficial)",k:"c",p:[37.1727,-3.6014]},
+ {n:"Puerta de la Catedral (Pasiegas)",k:"k",p:[37.1760,-3.5989]},
+ {n:"Plaza Nueva",p:[37.1775,-3.5917]},{n:"Cuesta de Gomérez",p:[37.1768,-3.5905]},
+ {n:"Albaicín",p:[37.1810,-3.5920]},{n:"Realejo (Campo del Príncipe)",p:[37.1695,-3.5930]}];
+const CONSEJOS=[
+ "Metro de Granada: servicio ininterrumpido desde la mañana del Miércoles Santo hasta las 2:00 del Sábado Santo (según las fuentes de este año; confírmalo).",
+ "Viernes Santo, 15:00: rezo al Señor de los Favores en el Campo del Príncipe.",
+ "La Carrera Oficial arranca en la Carrera de la Virgen y sigue por Ángel Ganivet hasta la Catedral: es la zona más concurrida.",
+ "Para ver las salidas con menos gente, ve al templo de la hermandad antes de que llegue al centro.",
+ "Llega con tiempo y consulta la hora de paso por el punto que elijas en la pestaña Mapa.",
+ "Los horarios pueden cambiar por lluvia o decisión de las hermandades: revisa las redes de cada una."];
+
+/* ===== FIN DATOS ===== */
+</script>
+<script>
+const RAMOS=new Date(2027,2,21);
+const DIAS=["Dom. Ramos","Lunes Santo","Martes Santo","Miérc. Santo","Jueves Santo","Viernes Santo","Sábado Santo","Dom. Resurrección"];
+const T={es:{agenda:"Agenda",ahora:"Inicio",plan:"Mi plan",mapa:"Mapa",mas:"Más",bus:"Buscar hermandad o titular…",bar:"Todos los barrios",sin:"Sin resultados.",fav:"Añadir a favoritas",ver:"Marcar como vista",cer:"Cerrar",sale:"Sale de",llega:"Llega a",tit:"Titulares",his:"Historia",tun:"Túnica y colores",mar:"Marchas típicas",fot:"Fotos de los titulares",pen:"Pendiente de añadir.",cons:"Consejos prácticos",pas:"Pasaporte cofrade",log:"Logros"},
+en:{agenda:"Schedule",ahora:"Home",plan:"My plan",mapa:"Map",mas:"More",bus:"Search brotherhood or image…",bar:"All districts",sin:"No results.",fav:"Add to favourites",ver:"Mark as seen",cer:"Close",sale:"Departs from",llega:"Returns to",tit:"Sacred images",his:"History",tun:"Robes and colours",mar:"Typical marches",fot:"Photos of the images",pen:"To be added.",cons:"Practical tips",pas:"Cofrade passport",log:"Achievements"}};
+let C={l:"es",fs:100};try{C=Object.assign(C,JSON.parse(localStorage.getItem("cfg")||"{}"))}catch(e){}
+const t=k=>T[C.l][k];
+function cfg(k){if(k==="fs")C.fs=C.fs>=130?100:C.fs+15;else if(k==="th")C.th={auto:"light",light:"dark",dark:"auto"}[C.th||"auto"];else C.l=C.l==="es"?"en":"es";try{localStorage.setItem("cfg",JSON.stringify(C))}catch(e){}render()}
+const $=id=>document.getElementById(id);
+const ld=k=>{try{return JSON.parse(localStorage.getItem(k)||"[]")}catch(e){return[]}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const hoy=()=>{const d=Math.floor((new Date(new Date().toDateString())-RAMOS)/864e5);return d>=0&&d<=7?d:0};
+let favs=ld("favs"),vistas=ld("vistas"),dia=hoy(),tab="ahora",sim=null,map=null,qv="",bv="";
+const ok=x=>x&&x!=="—";
+const mins=x=>{x=(x||"").replace("~","");if(!/^\d/.test(x))return null;const[a,b]=x.split(":");return +a*60+ +b};
+const fecha=(d,m)=>new Date(2027,2,21+d,0,m);
+const barrio=h=>/Albaic|Elvira|Sacromonte/.test(h.t)?"Albaicín / Sacromonte":/Zaid/.test(h.t)?"Zaidín":"Centro y otros";
+const BARRIOS=["Albaicín / Sacromonte","Zaidín","Centro y otros"];
+function rango(h){const a=mins(h.s);if(a==null)return null;let b=mins(h.e),est=false;if(b==null){b=a+360;est=true}else if(b<=a)b+=1440;return{ini:fecha(h.dia,a),fin:fecha(h.dia,b),est}}
+function estado(h,now){const r=rango(h);if(!r)return null;
+ if(now<r.ini){const m=Math.round((r.ini-now)/6e4);return m<=120?{t:(C.l==="es"?"sale en ":"leaves in ")+(m<60?m+" min":Math.floor(m/60)+" h "+m%60+" min"),c:"",o:1}:null}
+ if(now<=r.fin)return{t:C.l==="es"?(r.est?"en la calle (est.)":"en la calle"):"on the street",c:"r",o:0};return{t:"",c:"g",o:2}}
+function cd(h,now){const r=rango(h);if(!r)return null;
+ if(now<r.ini){const m=Math.round((r.ini-now)/6e4),d=Math.floor(m/1440),hh=Math.floor(m%1440/60),mm=m%60;
+  return{t:"sale en "+(d?d+" d "+hh+" h":hh?hh+" h"+(mm?" "+mm+" min":""):mm+" min"),c:"",p:Math.max(0,100-Math.min(m,120)/1.2)}}
+ if(now<=r.fin)return{t:r.est?"en la calle (est.)":"en la calle",c:"r",p:Math.min(100,(now-r.ini)/(r.fin-r.ini)*100)};
+ return{t:"recogida",c:"g",p:100}}
+const tagCd=(h,now)=>{const x=cd(h,now);return x?`<span class="tag ${x.c}">${x.t}</span>`:""};
+const barCd=(h,now)=>{const x=cd(h,now);return x?`<div class="bar sm"><i style="width:${x.p}%"></i></div>`:""};
+function proximas(){const now=sim||new Date();const l=planL().map(h=>({h,r:rango(h)})).filter(x=>x.r&&x.r.fin>now).sort((a,b)=>a.r.ini-b.r.ini).slice(0,3);
+ return l.length?"<h2>⭐ Tus próximas</h2>"+l.map(x=>card(x.h,tagCd(x.h,now),barCd(x.h,now))).join(""):(favs.length?"":'<p class="aviso">Marca ☆ tus hermandades y aquí verás cuál sale antes.</p>')}
+function cuenta(){const d=Math.ceil((RAMOS-new Date())/864e5);$("cd").textContent=C.l==="es"?(d>0?"Faltan "+d+" días para el Domingo de Ramos":"¡Semana Santa en Granada!"):(d>0?d+" days to Palm Sunday":"Holy Week in Granada!")}
+function pintaDias(){const v=tab==="agenda"||tab==="mapa";$("dias").style.display=v?"flex":"none";
+ $("dias").innerHTML=DIAS.map((n,i)=>`<button class="${i===dia?'on':''}" onclick="dia=${i};render()">${n}</button>`).join("")}
+function card(h,extra,bar){return `<div class="card"><div class="hr"><b>${h.s.replace("~","")}</b><span>salida</span></div><div class="i" onclick="ficha(${h.id})"><b>${h.n}${extra||""}</b><small>${DIAS[h.dia]} · entrada ${h.e} · ${barrio(h)}</small>${bar||""}</div>
+<button class="b" onclick="tog('vistas',${h.id})">${vistas.includes(h.id)?"✅":"⚪"}</button><button class="b" onclick="tog('favs',${h.id})">${favs.includes(h.id)?"★":"☆"}</button></div>`}
+function tog(k,id){const n=(a=>a.includes(id)?a.filter(x=>x!==id):[...a,id]);if(k==="favs"){favs=n(favs);sv(k,favs)}else{vistas=n(vistas);sv(k,vistas)}render();if($("dlg").open)ficha(id)}
+function ficha(id){const o=$("dlg").open,st=$("dlg").scrollTop,h=H.find(x=>x.id===id),x=EXTRA[id]||{},P=t("pen");
+ $("dlg").innerHTML=`<div class="fh"><h3>${h.n}</h3><small>${DIAS[h.dia]} · ${barrio(h)}</small></div><div class="fb"><dl><dt>${t("sale")} / ${t("llega")}</dt><dd>${t("sale")}: ${h.t}<br>${t("llega")}: ${h.ll||h.t}${ok(h.t)?`<br><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.t+" Granada")}">📍 Ver templo en el mapa</a>`:""}</dd>
+<dt>Horarios</dt><dd>${h.s} → ${h.e}<br>Carrera de la Virgen: ${h.c} · Catedral: ${h.k}</dd>
+<dt>${t("tit")}</dt><dd>${h.ti}</dd><dt>${t("his")}</dt><dd>${x.historia||P}</dd>
+<dt>${t("tun")}</dt><dd>${x.tunica||P}</dd>${x.cultos?`<dt>Cultos</dt><dd>${x.cultos}</dd>`:""}
+<dt>${t("mar")}</dt><dd>${x.marchas?x.marchas+"<br>":""}<a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent("marchas "+h.n+" Granada Semana Santa")}">🎵 YouTube</a></dd>
+<dt>${t("fot")}</dt><dd><img src="fotos/${id}.jpg" onerror="this.remove()"><img src="fotos/${id}-2.jpg" onerror="this.remove()">${x.foto?`<img src="${x.foto}" style="max-width:100%;border-radius:8px"><br>`:""}<a target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent((h.ti&&h.ti!=="—"?h.ti:h.n)+" Granada")}">📷 Google</a></dd><dt>Mi diario</dt><dd>${diarioFicha(id)}</dd></dl>
+<button class="btn" onclick="tog('favs',${id})">${favs.includes(id)?"★ En tus favoritas · quitar":"☆ "+t("fav")}</button>
+<button class="btn" onclick="tog('vistas',${id})">${vistas.includes(id)?"✅ Vista · quitar":"⚪ "+t("ver")}</button>
+<button class="btn" onclick="imgH(${id})">🖼 Compartir tarjeta</button><button class="btn" style="background:#777" onclick="$('dlg').close()">${t("cer")}</button></div>`;if(!o)$("dlg").showModal();$("dlg").scrollTop=o?st:0;if(document.activeElement&&document.activeElement.blur)document.activeElement.blur()}
+
+const esc=s=>String(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const dg=()=>{try{return JSON.parse(localStorage.getItem("diario")||"{}")}catch(e){return{}}};
+function dsv(id,k,v){const d=dg();d[id]=d[id]||{};d[id][k]=v;try{localStorage.setItem("diario",JSON.stringify(d))}catch(e){}}
+function rate(id,k){dsv(id,"r",(dg()[id]||{}).r===k?0:k);ficha(id)}
+let OS=new Set(),vw="lista",dip=null,chkS=ld("chk");
+function toast(m){const o=$("toast");if(o)o.remove();const t=document.createElement("div");t.id="toast";t.textContent=m;($("dlg").open?$("dlg"):document.body).appendChild(t);if($("dlg").open)t.style.cssText="top:18px;bottom:auto";void t.offsetWidth;t.className="show";setTimeout(()=>{t.className=""},2400)}
+function anim(){const m=$("main");m.classList.remove("fi");void m.offsetWidth;m.classList.add("fi")}
+function go(k){OS.add(k);tab="mas";render();anim();setTimeout(()=>{const d=document.querySelector('details[data-k="'+k+'"]');d&&d.scrollIntoView({behavior:"smooth",block:"start"})},80)}
+function tog(k,id){navigator.vibrate&&navigator.vibrate(12);const n=(a=>a.includes(id)?a.filter(x=>x!==id):[...a,id]);const h=H.find(z=>z.id===id),pv=logros();let m="";
+ if(k==="favs"){favs=n(favs);sv(k,favs);m=favs.includes(id)?"★ "+h.n+" añadida a tus favoritas":"Quitada de tus favoritas"}
+ else{vistas=n(vistas);sv(k,vistas);if(vistas.includes(id)){if(!(dg()[id]||{}).d)dsv(id,"d",new Date().toLocaleDateString("es"));m="✅ Vista: "+h.n;const nw=logros().filter(x=>!pv.includes(x))[0];if(nw)m="🏅 ¡Nuevo logro! "+nw}else m="Desmarcada"}
+ render();if($("dlg").open)ficha(id);toast(m)}
+function diarioFicha(id){const D=dg()[id]||{};return `<div class="stars">${[1,2,3,4,5].map(k=>`<button class="st ${(D.r||0)>=k?"on":""}" onclick="rate(${id},${k})" aria-label="${k} estrellas">★</button>`).join("")}</div><textarea placeholder="Tu nota: dónde la viste, qué te gustó…" oninput="dsv(${id},'n',this.value)">${esc(D.n)}</textarea>${D.d?`<small class="aviso">Vista el ${D.d}</small>`:""}`}
+function alerta(){const now=sim||new Date();const x=planL().map(h=>({h,r:rango(h)})).filter(x=>x.r&&x.r.ini>now&&x.r.ini-now<=36e5).sort((a,b)=>a.r.ini-b.r.ini)[0];if(!x)return"";const m=Math.max(1,Math.round((x.r.ini-now)/6e4));return `<div class="alerta" onclick="ficha(${x.h.id})">⏰ Tu favorita <b>${x.h.n}</b> sale en ${m} min</div>`}
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;if(tab==="ahora")render()});
+function doInst(){dip&&dip.prompt();dip=null;render()}
+function noInst(){try{localStorage.setItem("noinst","1")}catch(e){}render()}
+function inst(){let st=false,ni=false;try{st=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone;ni=localStorage.getItem("noinst")}catch(e){}
+ if(st||ni)return"";
+ if(dip)return `<div class="fact">📲 <b>Instala la app</b> en tu móvil para abrirla como cualquier otra, incluso sin conexión.<br><button class="btn" onclick="doInst()">Instalar</button><button class="skip2" onclick="noInst()">Ahora no</button></div>`;
+ if(/iphone|ipad/i.test(navigator.userAgent))return `<div class="fact">📲 <b>Instálala:</b> pulsa Compartir y luego «Añadir a pantalla de inicio».<br><button class="skip2" onclick="noInst()">Entendido</button></div>`;
+ return""}
+function vAhora(){const now=sim||new Date();
+ const l=H.map(h=>({h,e:estado(h,now)})).filter(x=>x.e&&x.e.o<2).sort((a,b)=>a.e.o-b.e.o||mins(a.h.s)-mins(b.h.s));
+ const dn=Math.floor((new Date(now.toDateString())-RAMOS)/864e5),sem=dn>=0&&dn<=7,S=["Ramos","Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+ const wk=DIAS.map((n,d)=>{const c=H.filter(h=>h.dia===d).length,f=H.filter(h=>h.dia===d&&favs.includes(h.id)).length;return `<button class="wd ${sem&&d===dn?"hoy":""}" onclick="dia=${d};tab='agenda';render();anim();scrollTo(0,0)"><span>${S[d]}</span><b>${21+d}</b><small>${c}${f?" · ★"+f:""}</small></button>`}).join("");
+ return inst()+hero(now)
+ +wxHtml()+`<div class="qa"><button onclick="go('Trivial cofrade')">🎯<span>Trivial</span></button><button onclick="go('Glosario cofrade')">📖<span>Glosario</span></button><button onclick="go('Qué llevar')">🎒<span>Qué llevar</span></button><button onclick="go('Mi diario')">📔<span>Mi diario</span></button></div>`
+ +`<div class="tiles"><div><b>${H.length}</b><span>hermandades</span></div><div><b>${favs.length}</b><span>favoritas</span></div><div><b>${vistas.length}</b><span>vistas</span></div></div>`
+ +`<h2>Esta semana · marzo 2027</h2><div class="wk">${wk}</div>`
+ +`<h2>En la calle y a punto de salir</h2>`+(l.length?l.map(x=>card(x.h,`<span class="tag ${x.e.c}">${x.e.t}</span>`,barCd(x.h,now))).join(""):`<p class="aviso">Ahora mismo no hay procesiones ni salen en las próximas 2 horas.</p>`)
+ +`<details class="sim"><summary>🧪 Probar con otra fecha y hora</summary><input type="datetime-local" onchange="sim=this.value?new Date(this.value):null;render()" value="${sim?new Date(sim-sim.getTimezoneOffset()*6e4).toISOString().slice(0,16):""}"></details>`}
+function vLinea(){const l=H.filter(h=>h.dia===dia&&rango(h)).sort((a,b)=>mins(a.s)-mins(b.s));
+ if(!l.length)return `<p class="aviso">Sin horarios para este día.</p>`;
+ const it=l.map(h=>{const r=rango(h),a=mins(h.s);return{h,a,e:a+(r.fin-r.ini)/6e4,est:r.est}});
+ const mn=Math.floor(Math.min(...it.map(x=>x.a))/60)*60,mx=Math.ceil(Math.max(...it.map(x=>x.e))/60)*60,PX=64,W=(mx-mn)/60*PX+40;
+ let hrs="";for(let m=mn;m<=mx;m+=60)hrs+=`<span style="left:${(m-mn)/60*PX}px">${String(Math.floor(m/60)%24).padStart(2,"0")}h</span>`;
+ const nw=sim||new Date(),nm=(nw-fecha(dia,0))/6e4,nl=nm>=mn&&nm<=mx?`<i class="nowl" style="left:${(nm-mn)/60*PX}px"></i>`:"";
+ const rows=it.map(x=>`<div class="tlr" onclick="ficha(${x.h.id})"><span class="lab" style="left:${(x.a-mn)/60*PX}px">${favs.includes(x.h.id)?"★ ":""}${x.h.n}</span><span class="bar2 ${x.est?"est":""}" style="left:${(x.a-mn)/60*PX}px;width:${(x.e-x.a)/60*PX}px"></span></div>`).join("");
+ const sin=H.filter(h=>h.dia===dia&&!rango(h));
+ return `<div class="tl"><div class="tli" style="width:${W}px;background-image:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px ${PX}px)"><div class="tlh">${hrs}</div>${rows}${nl}</div></div><p class="aviso">Barra morada: de la salida a la entrada. Barra dorada: hora de entrada desconocida (estimada en 6 h). Toca una barra para ver la ficha.${sin.length?" Sin horario: "+sin.map(h=>h.n).join(", ")+".":""}</p>`}
+function vAgenda(){return proximas()+`<div class="seg"><button class="${vw==="lista"?"on":""}" onclick="vw='lista';render()">📋 Lista</button><button class="${vw==="linea"?"on":""}" onclick="vw='linea';render()">⏱ Línea de tiempo</button></div>`
+ +(vw==="lista"?`<div class="ins"><input id="q" value="${qv}" placeholder="${t("bus")}" oninput="filtra()"><select id="bar" onchange="filtra()"><option value="">${t("bar")}</option>${BARRIOS.map(b=>`<option ${b===bv?"selected":""}>${b}</option>`).join("")}</select></div><div id="ls"></div>`:vLinea())}
+function filtra(){if(!$("q"))return;qv=$("q").value;bv=$("bar").value;const q=qv.toLowerCase();
+ const l=H.filter(h=>(q?(h.n+" "+(h.ti||"")).toLowerCase().includes(q):h.dia===dia)&&(!bv||barrio(h)===bv));l.sort((a,b)=>(q?a.dia-b.dia:0)||(mins(a.s)??9999)-(mins(b.s)??9999));
+ $("ls").innerHTML=l.length?l.map(h=>card(h)).join(""):`<p class="aviso">${t("sin")}</p>`}
+const planL=()=>H.filter(h=>favs.includes(h.id)).sort((a,b)=>a.dia-b.dia||(mins(a.s)??9999)-(mins(b.s)??9999));
+function vPlan(){const p=planL();if(!p.length)return `<h2>${t("plan")}</h2><p class="aviso">☆</p>`;
+ let o=`<h2>${t("plan")}</h2>`,last=-1;
+ p.forEach((h,i)=>{if(h.dia!==last){o+=`<h2>${DIAS[h.dia]}</h2>`+rutaHtml(h.dia);last=h.dia}
+  const q=p[i-1];if(q&&q.dia===h.dia){
+   if(mins(h.s)!=null&&mins(q.s)!=null&&mins(h.s)-mins(q.s)<60)o+=`<div class="warn">⚠ ${q.n} / ${h.n}: salen con menos de 1 h de diferencia.</div>`;
+   if(ok(q.k)&&ok(h.k)){const g=mins(h.k)-mins(q.k);o+=g<25?`<div class="warn">⏱ Catedral: ${q.n} (${q.k}) y ${h.n} (${h.k}) pasan con solo ${g} min de margen (o en orden distinto).</div>`:`<p class="aviso">✔ Catedral: margen de ${g} min entre ambas.</p>`}}
+  const nw=sim||new Date();o+=card(h,tagCd(h,nw),barCd(h,nw))});
+ return o+`<button class="btn" onclick="ics()">📅 .ics (−1 h)</button><button class="btn" onclick="comp()">📤 WhatsApp</button>`}
+const WALK=15,SPAN=20;
+function opcs(h){return [["c","Carrera de la Virgen"],["k","Puerta de la Catedral"],["s","la salida ("+(ok(h.t)?h.t:"su templo")+")"]].map(([k,n])=>({k,n,m:mins(h[k]),hh:(h[k]||"").replace("~","")})).filter(o=>o.m!=null)}
+const need=(a,b)=>a.k===b.k?SPAN:(a.k==="s"||b.k==="s")?45:WALK;
+function planDia(d){const l=planL().filter(h=>h.dia===d).map(h=>({h,o:opcs(h)})),vi=l.filter(x=>x.o.length).sort((a,b)=>a.o[0].m-b.o[0].m),sin=l.filter(x=>!x.o.length).map(x=>x.h),out=[];let pv=null;
+ vi.forEach(x=>{let pk=null;for(const c of x.o){if(!pv||c.m-pv.m>=need(pv,c)){pk=c;break}}
+  out.push({h:x.h,p:pk||x.o[0],w:!pk});pv=out[out.length-1].p});return{out,sin}}
+function rutaHtml(d){const r=planDia(d);if(!r.out.length)return"";let o='<div class="ruta"><b>🧭 Ruta sugerida</b>',pv=null;
+ r.out.forEach(x=>{if(pv){const g=x.p.m-pv.m,n=need(pv,x.p);o+=`<div class="rt">${pv.k===x.p.k?"⏳ Mismo punto":"🚶 Paseo"} · margen ${g} min${g<n?" ⚠ justo":""}</div>`}
+  o+=`<div class="rs${x.w?" w":""}"><b>${x.p.hh}</b> ${x.h.n}<small>${x.p.n}${x.w?" · no llegas del todo tras la anterior":""}</small></div>`;pv=x.p});
+ if(r.sin.length)o+=`<p class="aviso">Sin horario para planificar: ${r.sin.map(h=>h.n).join(", ")}.</p>`;
+ return o+'<p class="aviso">Estimación: unos 15 min a pie entre la Carrera y la Catedral y 20 min entre pasos en un mismo punto. Confirma los horarios el mismo día.</p></div>'}
+function ics(){const f=d=>d.toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";let s="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Cofrade Granada//ES\r\n";
+ planL().forEach(h=>{const r=rango(h);if(!r)return;s+=`BEGIN:VEVENT\r\nUID:cg${h.id}@cofrade\r\nDTSTAMP:${f(new Date())}\r\nDTSTART:${f(r.ini)}\r\nDTEND:${f(new Date(r.ini.getTime()+36e5))}\r\nSUMMARY:${h.n} (salida)\r\nLOCATION:${h.t}\r\nBEGIN:VALARM\r\nTRIGGER:-PT60M\r\nACTION:DISPLAY\r\nDESCRIPTION:Sale ${h.n}\r\nEND:VALARM\r\nEND:VEVENT\r\n`});
+ s+="END:VCALENDAR";const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([s],{type:"text/calendar"}));a.download="mi-semana-santa.ics";a.click()}
+function share(t){if(navigator.share)navigator.share({text:t}).catch(()=>{});else window.open("https://wa.me/?text="+encodeURIComponent(t))}
+function comp(){share("Mi Semana Santa de Granada:\n"+planL().map(h=>`${DIAS[h.dia]} ${h.s} - ${h.n}`).join("\n"))}
+const PX=[[110,248],[225,158],[255,120],[290,118],[255,55],[300,185]];
+let sel=0;
+function selP(i){sel=i;render()}
+function vMapaEsq(){
+ const pin=(p,i)=>{const [x,y]=PX[i],a=i===sel;return `<g onclick="selP(${i})" style="cursor:pointer" transform="translate(${x},${y})">${a?'<circle class="pulse" cy="-20" r="14" fill="none" stroke="#d4a23a" stroke-width="3"/>':''}<g transform="scale(${a?1.25:1})" filter="url(#sh)"><path d="M0,0C0,0-12,-14-12,-22C-12,-29-6,-34 0,-34C6,-34 12,-29 12,-22C12,-14 0,0 0,0Z" fill="${a?'#d4a23a':'#6b0f24'}" stroke="#fff" stroke-width="2"/><text y="-18" text-anchor="middle" font-size="12" font-weight="700" fill="${a?'#2a1a00':'#fff'}">${i+1}</text></g></g>`};
+ const lb=(x,y,t,c,sz,it)=>{const a=`x="${x}" y="${y}" font-size="${sz||9}" text-anchor="middle" font-family="Georgia,serif" ${it?'font-style="italic"':''}`;return `<text ${a} fill="none" stroke="#f6eedb" stroke-width="3" stroke-linejoin="round">${t}</text><text ${a} fill="${c||'#6b5d4d'}">${t}</text>`};
+ const grid=[...Array(9)].map((_,i)=>`<path d="M${130+i*14},95 L${105+i*18},265"/>`).join("")+[...Array(7)].map((_,i)=>`<path d="M120,${110+i*22} L330,${100+i*24}"/>`).join("");
+ return `<svg viewBox="0 0 400 320" style="width:100%;border-radius:16px;box-shadow:0 4px 14px #0003" role="img" aria-label="Esquema del centro de Granada">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6eedb"/><stop offset="1" stop-color="#e4d6b6"/></linearGradient>
+<radialGradient id="h1"><stop offset="0" stop-color="#c9b88f"/><stop offset="1" stop-color="#e3d6b4"/></radialGradient>
+<linearGradient id="wt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8ec3e6"/><stop offset="1" stop-color="#5f9fcf"/></linearGradient>
+<filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".35"/></filter></defs>
+<style>.lb{paint-order:stroke;stroke:#f6eedb;stroke-width:3px;stroke-linejoin:round;font-family:Georgia,serif}.ruta{animation:d 1.6s linear infinite}@keyframes d{to{stroke-dashoffset:-24}}.pulse{animation:p 1.4s ease-out infinite}@keyframes p{0%{r:14;opacity:.8}100%{r:30;opacity:0}}</style>
+<rect width="400" height="320" fill="url(#bg)"/>
+<g stroke="#cfc09c" stroke-width=".8" opacity=".6" fill="none">${grid}</g>
+<ellipse cx="250" cy="45" rx="100" ry="42" fill="url(#h1)"/><ellipse cx="250" cy="45" rx="70" ry="28" fill="none" stroke="#b9a87c" stroke-width=".8"/><ellipse cx="250" cy="45" rx="40" ry="15" fill="none" stroke="#b9a87c" stroke-width=".8"/>
+<ellipse cx="352" cy="125" rx="58" ry="44" fill="url(#h1)"/><ellipse cx="352" cy="125" rx="34" ry="24" fill="none" stroke="#b9a87c" stroke-width=".8"/>
+<path d="M0,225 C90,235 150,265 215,320" stroke="#4f8fc0" stroke-width="13" fill="none" stroke-linecap="round" opacity=".35"/><path d="M0,225 C90,235 150,265 215,320" stroke="url(#wt)" stroke-width="9" fill="none" stroke-linecap="round"/>
+<path d="M255,120 C270,90 300,70 400,45" stroke="url(#wt)" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M255,120 L200,150 L190,190 L150,250" stroke="#7fb2d9" stroke-width="3" fill="none" stroke-dasharray="2 5" stroke-linecap="round"/>
+<g stroke="#fffaf0" stroke-width="5" fill="none" stroke-linecap="round"><path d="M200,150 L255,120"/><path d="M200,150 L150,105"/><path d="M255,120 L335,115"/><path d="M200,190 L300,185"/><path d="M225,158 L190,190"/></g>
+<g stroke="#d6c8a6" stroke-width="1.2" fill="none"><path d="M200,150 L255,120"/><path d="M200,150 L150,105"/><path d="M255,120 L335,115"/><path d="M200,190 L300,185"/><path d="M225,158 L190,190"/></g>
+<path d="M110,248 L145,240 L170,225 L185,212 L200,190 L215,180 L235,170 L225,158" stroke="#7a5a00" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".35"/>
+<path class="ruta" d="M110,248 L145,240 L170,225 L185,212 L200,190 L215,180 L235,170 L225,158" stroke="#e0b92c" stroke-width="4" fill="none" stroke-dasharray="8 5" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#9b5b3c" stroke="#fff" stroke-width="1"><rect x="338" y="104" width="30" height="12" rx="1"/><rect x="338" y="99" width="5" height="6"/><rect x="348" y="99" width="5" height="6"/><rect x="358" y="99" width="5" height="6"/><rect x="351" y="92" width="9" height="12"/></g>
+<g fill="#8a7f95" stroke="#fff" stroke-width="1"><path d="M232,148 q8,-12 16,0 v8 h-16z"/><rect x="238" y="138" width="4" height="6"/></g>
+${lb(250,18,"ALBAICÍN","#7a6a4a",11,1)}${lb(352,160,"ALHAMBRA","#7a6a4a",11,1)}${lb(378,30,"Sacromonte","#7a6a4a",9,1)}${lb(55,212,"Río Genil","#2f6f9f",9,1)}${lb(325,70,"Carrera del Darro","#2f6f9f",8,1)}${lb(152,98,"Gran Vía")}${lb(148,143,"Pl. Isabel la Católica")}${lb(238,203,"Puerta Real")}${lb(300,212,"REALEJO","#7a6a4a",10,1)}${lb(75,266,"Carrera Oficial","#7a5a00",9)}${lb(150,306,"ZAIDÍN ↓","#7a6a4a",10,1)}${lb(262,172,"Catedral")}${lb(352,88,"Alhambra","#7a6a4a",8)}
+<g transform="translate(30,38)"><circle r="16" fill="#fffaf0" stroke="#b9a87c"/><path d="M0,-12 L3,0 L0,12 L-3,0Z" fill="#6b0f24"/><path d="M-12,0 L0,-3 L12,0 L0,3Z" fill="#d4a23a"/><text y="-19" text-anchor="middle" font-size="8" fill="#6b0f24" font-weight="700">N</text></g>
+<g transform="translate(262,294)"><rect width="128" height="18" rx="9" fill="#fffaf0" opacity=".9"/><path d="M8,9 H30" stroke="#e0b92c" stroke-width="4" stroke-dasharray="6 3"/><text x="36" y="12.5" font-size="9" fill="#4a3a1a">Carrera Oficial</text></g>
+${PUNTOS.map(pin).join("")}</svg>
+<p class="aviso">Esquema sin escala del centro de Granada. Toca un número para ver qué pasa por ahí.</p><div id="info"></div>
+<h2>¿Dónde la veo? (${DIAS[dia]})</h2><select id="pt" onchange="pasos()">${PUNTOS.filter(p=>p.k).map(p=>`<option value="${p.k}">${p.n}</option>`).join("")}</select><div id="pas"></div>
+<h2>Puntos clave</h2>${PUNTOS.map((p,i)=>`<div class="card"><div class="i"><b>${i+1}. ${p.n}</b><small><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${p.p[0]},${p.p[1]}">📍 Google Maps</a> · <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=${p.p[0]}&mlon=${p.p[1]}#map=17/${p.p[0]}/${p.p[1]}">OpenStreetMap</a></small></div></div>`).join("")}`}
+let mv="esq",me=null;
+const CARRERA=[[37.1727,-3.6014],[37.1738,-3.5998],[37.1748,-3.5994],[37.1760,-3.5989]];
+function tailMapa(){return `<div id="info"></div><h2>¿Dónde la veo? (${DIAS[dia]})</h2><select id="pt" onchange="pasos()">${PUNTOS.filter(p=>p.k).map(p=>`<option value="${p.k}">${p.n}</option>`).join("")}</select><div id="pas"></div>
+<h2>Puntos clave</h2>${PUNTOS.map((p,i)=>`<div class="card"><div class="i"><b>${i+1}. ${p.n}</b><small><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${p.p[0]},${p.p[1]}">📍 Google Maps</a> · <a target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=${p.p[0]}&mlon=${p.p[1]}#map=17/${p.p[0]}/${p.p[1]}">OpenStreetMap</a></small></div></div>`).join("")}`}
+function vReal(){return `<div id="lmap"></div><button class="btn" onclick="geo()">📍 ¿Qué punto tengo más cerca?</button><div id="geo"></div><p class="aviso">Mapa de OpenStreetMap. La línea dorada es la Carrera Oficial, dibujada de forma aproximada. La primera vez necesita conexión; después guarda lo que has visto.</p>`+tailMapa()}
+function vMapa(){return `<div class="seg"><button class="${mv==="esq"?"on":""}" onclick="mv='esq';render()">🗺 Esquema</button><button class="${mv==="real"?"on":""}" onclick="mv='real';render()">🌍 Mapa real</button></div>`+(mv==="real"?vReal():vMapaEsq())}
+function loadLeaflet(cb){const fail=()=>{const e=$("lmap");if(e)e.innerHTML='<p class="aviso" style="padding:14px">No se pudo cargar el mapa. Necesitas conexión la primera vez; mientras tanto usa el esquema.</p>'};
+ if(window.L)return cb();if(!navigator.onLine)return fail();
+ if(!document.getElementById("lfc")){const l=document.createElement("link");l.id="lfc";l.rel="stylesheet";l.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";document.head.appendChild(l)}
+ const sc=document.createElement("script");sc.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";sc.onload=()=>{try{cb()}catch(e){fail()}};sc.onerror=fail;document.head.appendChild(sc)}
+function initReal(){if(!$("lmap"))return;me=null;
+ loadLeaflet(()=>{if(!$("lmap")||mv!=="real")return;map&&map.remove();map=L.map("lmap").setView([37.1745,-3.5990],15);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
+  L.polyline(CARRERA,{color:"#d4a23a",weight:6,opacity:.9,dashArray:"10 8"}).addTo(map);
+  PUNTOS.forEach((p,i)=>L.marker(p.p,{icon:L.divIcon({className:"",html:'<div class="mk'+(p.k?" kk":"")+'">'+(i+1)+"</div>",iconSize:[30,30],iconAnchor:[15,15]})}).addTo(map).on("click",()=>{sel=i;initMapa(1)}));
+  setTimeout(()=>map&&map.invalidateSize(),200)})}
+function geo(){const g=$("geo");if(!navigator.geolocation){g.innerHTML='<p class="aviso">Tu navegador no permite la ubicación.</p>';return}
+ g.innerHTML='<p class="aviso">Buscando tu posición…</p>';
+ navigator.geolocation.getCurrentPosition(pos=>{const a=pos.coords.latitude,b=pos.coords.longitude,r=Math.PI/180;
+  const dist=q=>{const dl=(q[0]-a)*r,dg=(q[1]-b)*r,v=Math.sin(dl/2)**2+Math.cos(a*r)*Math.cos(q[0]*r)*Math.sin(dg/2)**2;return 12742e3*Math.asin(Math.sqrt(v))};
+  const n=PUNTOS.map((q,i)=>({q,i,d:dist(q.p)})).sort((u,v)=>u.d-v.d)[0],f=d=>d<1000?Math.round(d)+" m":(d/1000).toFixed(1)+" km";
+  g.innerHTML=`<div class="fact">📍 Estás a <b>${f(n.d)}</b> de «${n.q.n}» (unos ${Math.max(1,Math.round(n.d/80))} min a pie).</div>`;
+  if(map&&window.L){me&&map.removeLayer(me);me=L.circleMarker([a,b],{radius:9,color:"#fff",weight:3,fillColor:"#2a7de1",fillOpacity:1}).addTo(map);map.setView([a,b],16)}
+ },()=>{g.innerHTML='<p class="aviso">No se pudo obtener tu posición. Revisa el permiso de ubicación.</p>'},{enableHighAccuracy:true,timeout:12000})}
+function pasos(){const k=$("pt").value;const l=H.filter(h=>h.dia===dia&&ok(h[k])).sort((a,b)=>mins(a[k])-mins(b[k]));
+ $("pas").innerHTML=l.length?l.map(h=>`<div class="card"><div class="i" onclick="ficha(${h.id})"><b>${h[k]} · ${h.n}</b></div></div>`).join(""):`<p class="aviso">${t("sin")}</p>`}
+function initMapa(nr){if(mv==="real"&&!nr)setTimeout(initReal,0);const p=PUNTOS[sel];const l=p.k?H.filter(h=>h.dia===dia&&ok(h[p.k])).sort((a,b)=>mins(a[p.k])-mins(b[p.k])):[];
+ $("info").innerHTML=`<div class="card"><div class="i"><b>${sel+1}. ${p.n}</b>${p.k?(l.length?l.map(h=>`<small onclick="ficha(${h.id})">${h[p.k]} · ${h.n}</small>`).join(""):`<small>Sin horas de paso este día</small>`):`<small>Zona de interés (sin horas de paso)</small>`}</div></div>`;pasos()}
+function logros(){const L=[];DIAS.forEach((n,d)=>{const l=H.filter(h=>h.dia===d);if(l.length&&l.every(h=>vistas.includes(h.id)))L.push("🏅 "+n)});
+ const alb=H.filter(h=>barrio(h)===BARRIOS[0]);if(alb.length&&alb.every(h=>vistas.includes(h.id)))L.push("🏰 Albaicín completo");
+ if(vistas.length>=10)L.push("🥈 10 hermandades");if(vistas.length>=H.length)L.push("🏆 Pasaporte completo");return L}
+
+const GLOS=[["Hermandad / cofradía","Asociación de fieles que organiza la procesión y rinde culto a sus imágenes."],
+["Titulares","Imágenes principales de una hermandad, normalmente un Cristo y una Virgen."],
+["Nazareno","Penitente que acompaña la procesión con túnica, capillo o capirote y cíngulo, a menudo con un cirio."],
+["Capirote / capillo","Prenda en forma de cono o de capucha que cubre la cabeza y el rostro del nazareno."],
+["Antifaz","Tela que cubre el rostro. En algunas hermandades sustituye al capirote."],
+["Túnica","Vestimenta larga del nazareno, con los colores de su hermandad."],
+["Cíngulo","Cordón que ciñe la túnica a la cintura."],
+["Fajín","Banda ancha de tela que se ciñe a la cintura sobre la túnica."],
+["Capa","Prenda larga que se lleva sobre los hombros, parte del hábito de algunas hermandades."],
+["Cirio","Vela larga que portan los nazarenos. La cera que cae suele guardarse como recuerdo."],
+["Cruz de guía","Cruz que abre el cortejo de una hermandad."],
+["Estandarte","Insignia bordada de la cofradía, que preside un tramo del cortejo."],
+["Paso / trono","Estructura que sostiene las imágenes sagradas durante la procesión."],
+["Palio","Dosel de tela que cubre la imagen de la Virgen, sostenido por varales."],
+["Varales","Barras que sostienen el palio."],
+["Costalero","Persona que carga el paso, bajo las trabajaderas."],
+["Capataz","Quien dirige las maniobras del paso y a los costaleros."],
+["Llamador","Pieza metálica con la que el capataz da los golpes que ordenan las maniobras."],
+["Levantá","Momento en que se levanta el paso para echarse a andar."],
+["Chicotá","Tramo que recorre el paso entre dos descansos."],
+["Saeta","Canto religioso flamenco, sin acompañamiento, que se dedica a una imagen al pasar el paso."],
+["Marcha procesional","Pieza musical compuesta para acompañar a los pasos."],
+["Banda","Agrupación musical (de música, de cornetas y tambores…) que acompaña a los pasos."],
+["Hermano mayor","Máximo responsable de la hermandad."],
+["Diputado de tramo","Encargado de mantener el orden de un tramo del cortejo."],
+["Estación de penitencia","Recorrido de la hermandad desde su templo hasta la Catedral y vuelta, como acto de culto."],
+["Carrera Oficial","Tramo del centro de la ciudad por el que pasan las hermandades hasta llegar a la Catedral."],
+["Recogida","Regreso de la hermandad a su templo."]];
+const CHK=["Calzado muy cómodo","Agua","Batería externa para el móvil","Chaqueta: por la noche refresca","Paraguas o chubasquero por si llueve","Algo de dinero en efectivo","Un punto de encuentro acordado con tu grupo","Sillas o entradas, si las has reservado","Gorra y protección solar para las salidas de tarde","Pañuelos y una bolsa pequeña"];
+const RESP=["Guarda silencio cuando suene una saeta o pase una imagen.","No cruces entre los tramos del cortejo ni te metas entre los nazarenos.","No toques los pasos ni a los costaleros.","Con niños pequeños, llévalos de la mano en las zonas con mucha gente.","Si usas el móvil, no tapes la vista a quien tienes detrás, y evita el flash.","Haz caso a las indicaciones de los diputados de tramo y de la policía.","Cede el sitio a personas mayores y con movilidad reducida."];
+function glosHtml(){return `<input id="gq" placeholder="Buscar un término…" oninput="gf()">`+GLOS.map(g=>`<div class="gi" data-t="${(g[0]+" "+g[1]).toLowerCase()}"><b>${g[0]}</b><br>${g[1]}</div>`).join("")}
+function gf(){const q=$("gq").value.toLowerCase();document.querySelectorAll(".gi").forEach(e=>e.style.display=e.dataset.t.includes(q)?"":"none")}
+function chkHtml(){return `<p class="aviso">${chkS.length} de ${CHK.length} listos</p>`+CHK.map((c,i)=>`<button class="ck ${chkS.includes(i)?"on":""}" onclick="chkT(${i})"><i>${chkS.includes(i)?"✓":""}</i><span>${c}</span></button>`).join("")}
+function chkT(i){chkS=chkS.includes(i)?chkS.filter(x=>x!==i):[...chkS,i];sv("chk",chkS);render()}
+function stamps(){return `<div class="stamps">${H.map(h=>`<button class="stp ${vistas.includes(h.id)?"on":""}" onclick="ficha(${h.id})" title="${h.n}">${vistas.includes(h.id)?"✝":h.id}</button>`).join("")}</div>`}
+function diarioHtml(){const d=dg(),ids=Object.keys(d).filter(i=>H[i-1]&&(d[i].n||d[i].r||d[i].d));
+ if(!ids.length)return `<p class="aviso">Aquí aparecerán tus notas y valoraciones. Abre la ficha de una hermandad y escribe en «Mi diario».</p>`;
+ return ids.map(i=>{const x=d[i],h=H[i-1];return `<div class="card"><div class="i" onclick="ficha(${h.id})"><b>${h.n}</b><small>${"★".repeat(x.r||0)}${x.d?(x.r?" · ":"")+"vista el "+x.d:""}</small>${x.n?`<small>${esc(x.n)}</small>`:""}</div></div>`}).join("")+`<button class="btn" onclick="diaryShare()">📤 Compartir mi diario</button>`}
+function diaryShare(){const d=dg();share("Mi diario cofrade 2027:\n"+Object.keys(d).filter(i=>H[i-1]).map(i=>(H[i-1].n+" "+"★".repeat(d[i].r||0)+" "+(d[i].n||"")).trim()).join("\n"))}
+const SEC=(ic,tt,b)=>`<details class="sec" data-k="${tt}" ${OS.has(tt)?"open":""} ontoggle="this.open?OS.add('${tt}'):OS.delete('${tt}')"><summary>${ic} ${tt}</summary><div>${b}</div></details>`;
+const ul=a=>"<ul>"+a.map(x=>`<li>${x}</li>`).join("")+"</ul>";
+function imgPas(){const c=document.createElement("canvas");c.width=1080;c.height=1350;const x=c.getContext("2d");
+ const g=x.createLinearGradient(0,0,1080,1350);g.addColorStop(0,"#8c1d38");g.addColorStop(1,"#3a0612");x.fillStyle=g;x.fillRect(0,0,1080,1350);
+ drawLogo(x,540,60,270);x.textAlign="center";
+ x.fillStyle="#fff";x.font="bold 70px Georgia,serif";x.fillText("Pasaporte cofrade",540,380);
+ x.fillStyle="#d4a23a";x.font="42px Georgia,serif";x.fillText("Semana Santa de Granada 2027",540,445);
+ const n=vistas.length,T=H.length;x.fillStyle="#fff";x.font="bold 220px Georgia,serif";x.fillText(n+" / "+T,540,720);
+ x.font="40px Georgia,serif";x.fillText("hermandades vistas",540,790);
+ x.fillStyle="#ffffff33";x.fillRect(140,840,800,36);x.fillStyle="#d4a23a";x.fillRect(140,840,800*n/T,36);
+ const L=logros().slice(0,5);x.fillStyle="#fff";x.font="44px Georgia,serif";L.forEach((l,i)=>x.fillText(l,540,970+i*70));
+ if(!L.length){x.fillStyle="#ffffffaa";x.font="italic 40px Georgia,serif";x.fillText("Aún sin logros… ¡a salir a la calle!",540,990)}
+ x.fillStyle="#ffffffaa";x.font="34px Georgia,serif";x.fillText("Cofrade Granada",540,1300);
+ c.toBlob(async b=>{const f=new File([b],"pasaporte-cofrade.png",{type:"image/png"});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:"Mi pasaporte cofrade de Granada"})}catch(e){}return}
+  const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=f.name;a.click()})}
+function sharePas(){share("Mi pasaporte cofrade de Granada: "+vistas.length+" de "+H.length+" hermandades."+logros().map(x=>" "+x).join(""))}
+function reset(){if(confirm("¿Borrar tus favoritas, tu pasaporte, tu diario y tu lista?")){favs=[];vistas=[];chkS=[];sv("favs",favs);sv("vistas",vistas);sv("chk",chkS);try{localStorage.removeItem("diario")}catch(e){}render()}}
+const CULT=[[1,10,"Miércoles de Ceniza","Empieza la Cuaresma."],[1,14,"I Domingo de Cuaresma"],[1,21,"II Domingo de Cuaresma"],[1,28,"III Domingo de Cuaresma"],[2,7,"IV Domingo de Cuaresma","Domingo «Laetare»."],[2,14,"V Domingo de Cuaresma"],[2,19,"Viernes de Dolores","Víspera del Domingo de Ramos."],[2,21,"Domingo de Ramos","Empieza la Semana Santa."],[2,25,"Jueves Santo"],[2,26,"Viernes Santo","15:00: rezo al Señor de los Favores en el Campo del Príncipe."],[2,27,"Sábado Santo"],[2,28,"Domingo de Resurrección"],[4,16,"Pentecostés"],[4,27,"Corpus Christi"]];
+const MES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+function cultosHtml(){const n=sim||new Date(),h0=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+ return `<p class="aviso">Fechas litúrgicas de 2027 calculadas a partir de la Pascua (28 de marzo). Los cultos propios de cada hermandad (quinarios, besapiés, besamanos, traslados) los publica cada una: pendientes de añadir.</p>`+CULT.map(c=>{const d=Math.round((new Date(2027,c[0],c[1])-h0)/864e5);return `<div class="gi"><b>${c[1]} ${MES[c[0]]} · ${c[2]}</b>${d>1?` <span class="tag">en ${d} días</span>`:d===1?` <span class="tag">mañana</span>`:d===0?` <span class="tag r">hoy</span>`:""}${c[3]?`<br>${c[3]}`:""}</div>`}).join("")+`<button class="btn" onclick="icsCultos()">📅 Añadir estas fechas al calendario</button>`}
+function icsCultos(){const p2=n=>String(n).padStart(2,"0"),f=d=>d.getFullYear()+p2(d.getMonth()+1)+p2(d.getDate());let s="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Cofrade Granada//ES\r\n";
+ CULT.forEach((c,i)=>{s+=`BEGIN:VEVENT\r\nUID:cult${i}@cofrade\r\nDTSTAMP:${new Date().toISOString().replace(/[-:]/g,"").slice(0,15)}Z\r\nDTSTART;VALUE=DATE:${f(new Date(2027,c[0],c[1]))}\r\nDTEND;VALUE=DATE:${f(new Date(2027,c[0],c[1]+1))}\r\nSUMMARY:${c[2]}\r\nEND:VEVENT\r\n`});
+ s+="END:VCALENDAR";const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([s],{type:"text/calendar"}));a.download="cuaresma-2027.ics";a.click()}
+function vMas(){const L=logros(),pc=Math.round(vistas.length/H.length*100);
+ const dd=DIAS.map((n,d)=>{const l=H.filter(h=>h.dia===d);const v=l.filter(h=>vistas.includes(h.id)).length;return l.length?`<div class="row"><span>${n}</span><span>${v}/${l.length}</span></div>`:""}).join("");
+ if(!OS.init){OS.init=1;OS.add(t("pas"))}
+ return SEC("🪪",t("pas"),`<div class="bar"><i style="width:${pc}%"></i></div><p><b>${vistas.length}</b> / ${H.length} (${pc}%)</p>${stamps()}${dd}<h3>${t("log")}</h3>${L.length?ul(L):'<p class="aviso">Aún no hay logros: marca ✅ las hermandades que veas.</p>'}<button class="btn" onclick="imgPas()">🖼 Compartir como imagen</button><button class="btn" onclick="sharePas()">📤 Compartir como texto</button>`)
+ +SEC("📔","Mi diario",diarioHtml())+SEC("🎯","Trivial cofrade",qzHtml())+SEC("📖","Glosario cofrade",glosHtml())+SEC("🎒","Qué llevar",chkHtml())+SEC("🙏","Cómo vivirla con respeto",ul(RESP))
+ +SEC("🚧","Cortes de tráfico y transporte",`<p class="aviso">Datos de la Semana Santa de 2026; confirma los de 2027 cuando se publiquen.</p>`+ul([
+ "Cortes en el entorno de la Carrera Oficial (Gran Vía, Reyes Católicos, Puerta Real, Ángel Ganivet, Acera del Darro y Carrera de la Virgen): el Domingo de Ramos desde las 14:00 y el resto de días desde las 15:30, hasta que acaben las procesiones.",
+ "Domingo de Resurrección: corte de 9:00 a 13:00 aprox., y después cortes puntuales para limpiar la cera.",
+ "Desvíos generales: Severo Ochoa (norte y este), Recogidas (oeste) y Puente Blanco (sur).",
+ "Líneas 4, 21 y 33 desde Avda. de la Constitución: bajan por Severo Ochoa y Camino de Ronda.",
+ "Alhambra: líneas C30 y C35 por la Cuesta del Caidero. Albaicín: C31 y C34 llegan hasta Plaza de Haza Grande, y la C32 termina su servicio a las 15:30.",
+ "Metro: suele ampliar horarios en Semana Santa (en algunos años, servicio ininterrumpido del Miércoles al Sábado Santo). Confírmalo antes."]))
+ +SEC("🧭","Carrera Oficial",ul([
+ "En 2026 empezaba en la Carrera de la Virgen, ante la Basílica de la Virgen de las Angustias, y seguía por Puerta Real, Mesones, Marqués de Gerona y Plaza de las Pasiegas hasta la Catedral.",
+ "En años anteriores se instalaron pasillos peatonales en Ángel Ganivet (Cuadro de San Antonio y Andorra), Puerta Real, Recogidas–Alhóndiga, Mesones, Marqués de Gerona y Pasiegas: úsalos para cruzar entre procesiones.",
+ "Consulta en la pestaña Mapa a qué hora pasa cada hermandad por la Carrera de la Virgen y por la Catedral."]))
+ +SEC("💡","Consejos prácticos",ul([
+ "Lleva calzado muy cómodo: las distancias a pie son largas y el empedrado cansa.",
+ "Evita el coche en horario de procesiones; ve en transporte público o andando.",
+ "Hay cera en la calzada durante toda la semana: es peligrosa para motos y bicicletas.",
+ "Años anteriores hubo un puesto sanitario de la Federación en San Matías, esquina calle Navas.",
+ "Para ver el paso con menos gente, ve al templo de la hermandad en la salida, antes de que llegue al centro.",
+ "Los horarios pueden cambiar por lluvia o decisión de las hermandades: mira sus redes sociales el mismo día."]))
+ +SEC("📅","Cultos y actos del año",cultosHtml())
+ +SEC("⚙️","Ajustes",`<button class="btn" onclick="cfg('l')">🌐 Idioma: ${C.l==="es"?"Español → English":"English → Español"}</button><button class="btn" onclick="cfg('th')">🌓 Tema: ${({auto:"automático",light:"claro",dark:"oscuro"})[C.th||"auto"]}</button><button class="btn" onclick="cfg('fs')">🔠 Tamaño de letra: ${C.fs}%</button><button class="btn" onclick="share(location.href)">📲 Compartir la app</button><button class="btn" style="background:#b3261e" onclick="reset()">🗑 Borrar favoritas y pasaporte</button>`)
+ +SEC("ℹ️","Acerca de",`<p class="aviso">App no oficial hecha por un aficionado. Los horarios son orientativos (basados en la Semana Santa de 2026) y pueden cambiar: confírmalos con la Federación de Hermandades y Cofradías de Granada. Mapa esquemático sin escala.</p>`)}
+
+function sig(now){return H.map(h=>({h,r:rango(h)})).filter(x=>x.r&&x.r.ini>now).sort((a,b)=>a.r.ini-b.r.ini)[0]}
+function curio(){const a=Object.entries(EXTRA).filter(([i,x])=>x.historia&&H[i-1]).map(([i,x])=>H[i-1].n+": "+x.historia.split(". ")[0].replace(/\.$/,"")+".");if(!a.length)return"";const d=new Date();return`<div class="fact">💡 <b>¿Sabías que…?</b><br>${a[(d.getDate()+d.getMonth()*31)%a.length]}</div>`}
+function hero(now){const x=sig(now);if(!x)return `<div class="hero"><small>SEMANA SANTA</small><h3>Hasta el año que viene</h3><p>Ya han pasado todas las procesiones.</p></div>`+curio();
+ const c=cd(x.h,now);return `<div class="hero"><small>LA PRÓXIMA EN SALIR</small><h3>${x.h.n}</h3><div class="big">${c.t.replace("sale en ","")}</div><p>${DIAS[x.h.dia]} · ${x.h.s} · ${x.h.t}</p><button class="btn" onclick="ficha(${x.h.id})">Ver ficha</button></div>`+curio()}
+let qz=null,qLv=0;
+const sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+/* Banco de preguntas: [pregunta, correcta, [3 incorrectas], explicación] · nivel 1 fácil, 2 medio, 3 difícil */
+const BANCO=[
+["¿Qué se conmemora el Domingo de Ramos?","La entrada de Jesús en Jerusalén",["La Última Cena","La Ascensión","La Resurrección"],"Por eso la primera cofradía del día es la de la Borriquilla."],
+["¿Cómo se llama el conjunto de Jueves Santo, Viernes Santo y Sábado Santo con la Vigilia Pascual?","Triduo Pascual",["Octava de Pascua","Adviento","Pentecostés"],"Es el núcleo de la liturgia cristiana del año."],
+["¿Qué color litúrgico se usa el Domingo de Ramos y el Viernes Santo?","Rojo",["Morado","Blanco","Verde"],"El rojo recuerda la Pasión; el morado es el color de Cuaresma."],
+["¿Cuántos días dura la Cuaresma sin contar los domingos?","40",["33","30","50"],"Va del Miércoles de Ceniza al Sábado Santo."],
+["¿Cuántas estaciones tiene el Vía Crucis tradicional?","14",["7","12","15"],"Recorren la Pasión desde la condena hasta el sepulcro."],
+["¿En qué fecha cae el Miércoles de Ceniza de 2027?","10 de febrero",["17 de febrero","3 de marzo","24 de febrero"],"Pascua 2027 es el 28 de marzo y la Ceniza va 46 días antes."],
+["¿En qué fecha cae el Domingo de Resurrección de 2027?","28 de marzo",["4 de abril","21 de marzo","25 de abril"],"El Domingo de Ramos es el 21 de marzo."],
+["¿Qué se conmemora el Jueves Santo?","La Última Cena y el lavatorio de los pies",["La muerte en la cruz","El silencio del sepulcro","La Resurrección"],"El Viernes Santo recuerda la Pasión y muerte."],
+["¿Cómo se llama en Sevilla la noche del Jueves al Viernes Santo?","La Madrugá",["La Alborada","El Despertar","La Carrera"],"Salen la Macarena, el Silencio, el Gran Poder, Triana y Los Gitanos."],
+["¿Qué es un «paso de palio»?","El que lleva a la Virgen bajo un dosel",["El que lleva un Cristo en la cruz","El que lleva una escena de la Pasión","El que lleva el Santísimo"],"El que lleva escena con varias figuras se llama «paso de misterio»."],
+["¿Cómo se llama el paso con una escena de la Pasión de varias figuras?","Paso de misterio",["Paso de palio","Paso de nazarenos","Paso de Cristo yacente"],""],
+["¿Cómo se llaman las barras que sostienen el palio?","Varales",["Trabajaderas","Respiraderos","Bambalinas"],"Las bambalinas son los paños que cuelgan del borde superior del palio."],
+["¿Qué son las bambalinas de un palio?","Los paños que cuelgan del borde superior",["Las barras que lo sostienen","Las velas del paso","Los faldones inferiores del trono"],""],
+["¿Qué son las trabajaderas?","Los travesaños bajo los que se colocan los costaleros",["Los faldones del palio","Los cirios del paso","Las ruedas del trono"],""],
+["¿Con qué instrumento da el capataz las órdenes al paso?","Llamador",["Campana","Silbato","Tambor"],"Los golpes del llamador marcan levantá, marcha y arriada."],
+["¿Cómo se llama la banda ancha que protege la cintura del costalero?","Faja",["Cíngulo","Capa","Cogulla"],""],
+["¿Qué es una «chicotá»?","El tramo que recorre el paso entre dos descansos",["Un tipo de saeta","Una túnica de gala","La entrada en el templo"],""],
+["¿De qué palabra latina procede «saeta»?","Sagitta (flecha)",["Salutatio","Sacrum","Saeculum"],"La saeta es una «flecha» de oración cantada."],
+["¿Qué poeta granadino escribió el «Poema de la saeta» dentro del Poema del cante jondo?","Federico García Lorca",["Miguel Hernández","Gerardo Diego","Rafael Alberti"],""],
+["¿Quién escribió el poema «Saeta» que popularizó Joan Manuel Serrat?","Antonio Machado",["Federico García Lorca","Miguel Hernández","Rafael Alberti"],"Aparece en «Proverbios y cantares»."],
+["¿Quién talló el Cristo del Gran Poder de Sevilla?","Juan de Mesa",["Martínez Montañés","Pedro Roldán","Francisco Salzillo"],"Lo hizo en 1620."],
+["¿Qué escultor nacido en Granada talló la «Magdalena penitente»?","Pedro de Mena",["Juan de Mesa","Martínez Montañés","Francisco Salzillo"],""],
+["¿Quién talló al Cristo de la Expiración (el Cachorro) de Triana?","Francisco Antonio Gijón",["Juan de Mesa","Martínez Montañés","Pedro Roldán"],"Es de 1682."],
+["¿Qué Cristo es llevado por la Legión en Málaga el Jueves Santo?","Cristo de la Buena Muerte",["Cristo del Gran Poder","Cristo de Medinaceli","Cristo de las Aguas"],"Pertenece a la Congregación de Mena."],
+["¿Quién talló el Cristo del Consuelo de la hermandad de Los Gitanos?","José Risueño",["Pedro de Mena","Alonso Cano","Juan de Mesa"],"Se veneraba en la Abadía del Sacromonte como Cristo de las Cuevas."],
+["¿En qué abadía se veneraba el Cristo del Consuelo como «Cristo de las Cuevas»?","Abadía del Sacromonte",["Cartuja de Granada","Monasterio de San Jerónimo","Abadía de Santa Fe"],""],
+["¿En qué año fue fundada la hermandad de Los Gitanos?","1939",["1917","1947","1979"],"Sus reglas se aprobaron el 25 de junio de 1939."],
+["¿Qué cofradía universitaria granadina fue fundada en 1979?","Los Estudiantes",["Los Gitanos","La Aurora","Los Ferroviarios"],""],
+["¿Cuál es la única procesión del Sábado Santo en Granada?","Santa María de la Alhambra",["La Concha","Los Gitanos","El Cautivo"],""],
+["¿En qué año recibió la coronación canónica la Virgen de las Angustias de Santa María de la Alhambra?","2000",["1928","1944","1986"],"Fue el 21 de mayo."],
+["¿Qué hermandad granadina tiene sus faroles como seña de identidad y está ligada a Renfe?","Los Ferroviarios",["Las Chías","El Despojado","Los Facundillos"],"Fundada en 1953 y reorganizada en 1981."],
+["¿Cuál es la hermandad de la Aurora del Albaicín, con palio blanco bordado en oro?","La Aurora",["La Estrella","La Concha","Los Salesianos"],""],
+["¿A qué hora es el rezo al Señor de los Favores en el Campo del Príncipe el Viernes Santo?","15:00",["12:00","18:00","21:00"],""],
+["¿Ante qué basílica comienza la Carrera Oficial?","Basílica de la Virgen de las Angustias",["Catedral de Granada","Iglesia de San Gil","Monasterio de la Cartuja"],"En la Carrera de la Virgen."],
+["¿En qué plaza está la puerta de la Catedral por la que pasan las hermandades?","Plaza de las Pasiegas",["Bib-Rambla","Plaza Nueva","Campo del Príncipe"],""],
+["¿En qué año se fundó la hermandad sacramental de la que procede la del Cristo de San Agustín?","1680",["1517","1789","1953"],"Fundada el 6 de agosto; adquirió carácter penitencial en 1989."],
+["¿Qué dinastía construyó la Alhambra en su forma actual?","Nazarí",["Omeya","Almohade","Almorávide"],""],
+["¿En qué año se rindió Granada a los Reyes Católicos?","1492",["1469","1479","1512"],"Fue el 2 de enero."],
+["¿Quién fue el último rey nazarí de Granada?","Boabdil (Muhammad XII)",["Yusuf I","Muhammad V","Ismail I"],""],
+["¿Qué arquitecto renacentista diseñó la Catedral de Granada?","Diego de Siloé",["Juan de Herrera","Pedro Machuca","Juan de Villanueva"],""],
+["¿Quién proyectó el Palacio de Carlos V en la Alhambra?","Pedro Machuca",["Diego de Siloé","Juan de Herrera","José de Churriguera"],""],
+["¿En qué año se incorporó el Albaicín a la declaración de Patrimonio Mundial de la UNESCO?","1994",["1984","1999","1976"],"La Alhambra y el Generalife lo fueron en 1984."],
+["¿Quién es la patrona de Granada?","Virgen de las Angustias",["Virgen de las Nieves","Virgen del Rocío","Virgen de la Cabeza"],""],
+["¿Qué día se celebra en Granada la toma de la ciudad?","2 de enero",["6 de enero","12 de octubre","28 de febrero"],""],
+["¿Qué río bordea la Carrera del Darro?","Darro",["Genil","Beiro","Monachil"],""],
+["¿Qué cuesta une Plaza Nueva con la Alhambra?","Cuesta de Gomérez",["Cuesta del Chapiz","Cuesta de San Gregorio","Cuesta de Escoriaza"],""],
+["¿En qué barrio está la iglesia de San Juan de los Reyes, de donde sale el Vía Crucis?","Albaicín",["Realejo","Zaidín","Sacromonte"],""],
+["¿Qué hermandad sale de la iglesia de Ntra. Sra. de los Dolores, en el Zaidín?","La Lanzada",["Los Gitanos","La Aurora","Los Estudiantes"],""],
+["¿De qué color es la túnica de Los Gitanos?","Morada, con capillo y fajín rojos",["Negra con capillo azul","Blanca con fajín rojo","Burdeos con capillo blanco"],""],
+["¿Qué hermandad viste túnica burdeos con capillo y cíngulo blancos?","Los Estudiantes",["Los Gitanos","La Aurora","El Nazareno"],""],
+["¿Qué hermandad viste túnica y capa negras con capillo y cíngulo azules?","Los Salesianos",["La Concha","La Estrella","La Aurora"],"La Concha va de negro con cíngulo blanco; La Estrella lleva fajín dorado."],
+["¿Qué hermandad viste túnica, capa y capillo blancos con fajín rojo?","La Aurora",["La Concha","Los Salesianos","La Estrella"],""],
+["¿Qué hermandad usa túnica y capillo morados con cíngulo de esparto?","El Nazareno (Merced)",["La Aurora","Los Salesianos","La Santa Cena"],"Fundada en 1981."],
+["¿Qué hermandad usa túnica y capillo rojos de sarga con capa blanca?","La Santa Cena",["La Aurora","La Borriquilla","La Concha"],""],
+["¿Qué hermandad usa antifaz y túnica azules con capa blanca?","La Borriquilla",["La Santa Cena","Los Gitanos","El Despojado"],""],
+["¿Qué prenda típica llevan las mujeres en las procesiones de Jueves y Viernes Santo?","Mantilla",["Mantón de Manila","Capelina","Pañuelo de cabeza"],""],
+["¿Qué cofradía granadina fue la primera adscrita a la Federación, fundada en 1917?","El Vía Crucis",["La Borriquilla","La Aurora","Las Maravillas"],"Debe su nombre al Vía Crucis al cerro del Aceituno."],
+["¿Qué hermandad se fundó el 13 de mayo de 1986?","El Despojado",["La Lanzada","La Concha","La Esperanza"],"Su casa de hermandad está junto a San Emilio."],
+["¿Qué hermandad fue fundada el 20 de noviembre de 1983?","La Lanzada",["El Despojado","Los Salesianos","La Estrella"],""],
+["¿En qué año fue fundada La Concha, que abrió una nueva etapa de fundaciones?","1977",["1944","1983","1986"],""],
+["¿En qué año fue fundada la hermandad de La Aurora?","1944",["1917","1977","1953"],""]
+];
+const LV=[1,1,2,1,1,3,2,1,2,1,1,2,3,2,1,2,3,3,2,2,2,3,3,2,3,2,3,3,1,3,2,1,2,2,2,3,1,1,2,3,3,3,1,2,1,2,2,2,2,2,3,2,3,2,2,1,3,3,3,3,3];
+const BK=BANCO.map((x,i)=>({q:x[0],a:x[1],w:x[2],e:x[3],l:LV[i]||2}));
+const mkB=x=>({q:x.q,a:x.a,o:sh([x.a,...x.w]),e:x.e,l:x.l});
+function genQ(){const hs=sh(H),hh=x=>x.replace("~",""),op=(c,pool)=>sh([c,...sh([...new Set(pool)].filter(x=>x!==c)).slice(0,3)]);
+ const sal=H.map(h=>hh(h.s)).filter(x=>/^\d/.test(x)),tp=H.map(h=>h.t).filter(ok),L=[];
+ const hora=hs.find(h=>mins(h.s)!=null);if(hora)L.push({q:"¿A qué hora sale «"+hora.n+"»?",o:op(hh(hora.s),sal),a:hh(hora.s)});
+ const t1=hs.find(h=>ok(h.t)&&H.filter(z=>z.t===h.t).length===1);if(t1)L.push({q:"¿Qué hermandad sale de «"+t1.t+"»?",o:op(t1.n,H.map(h=>h.n)),a:t1.n});
+ const t2=hs.find(h=>ok(h.t)&&h!==t1);if(t2)L.push({q:"¿De qué templo sale «"+t2.n+"»?",o:op(t2.t,tp),a:t2.t});
+ const k=hs.find(h=>ok(h.k));if(k)L.push({q:"¿A qué hora pasa «"+k.n+"» por la Puerta de la Catedral?",o:op(hh(k.k),H.map(h=>hh(h.k)).filter(x=>/^\d/.test(x))),a:hh(k.k)});
+ const tt=hs.find(h=>ok(h.ti)&&h.ti.length<110);if(tt)L.push({q:"¿Qué hermandad tiene como titulares: "+tt.ti+"?",o:op(tt.n,H.map(h=>h.n)),a:tt.n});
+ const dd=sh(DIAS.map((n,d)=>d).filter(d=>H.filter(h=>h.dia===d&&mins(h.s)!=null).length>=3))[0];
+ if(dd!=null){const l=H.filter(h=>h.dia===dd&&mins(h.s)!=null).sort((a,b)=>mins(a.s)-mins(b.s)),w=l[0];if(mins(l[1].s)>mins(w.s))L.push({q:"¿Qué hermandad sale primero el "+DIAS[dd]+"?",o:op(w.n,l.map(h=>h.n)),a:w.n,e:"Sale a las "+hh(w.s)+"."})}
+ const d1=hs.find(h=>true);if(d1)L.push({q:"¿Qué día sale «"+d1.n+"»?",o:op(DIAS[d1.dia],DIAS),a:DIAS[d1.dia]});
+ return L}
+
+/* Túnicas: [túnica, capillo, cíngulo/fajín, capa o null] */
+const TUN={1:["#2b4a9a","#2b4a9a","#ffffff","#ffffff"],3:["#a3151f","#a3151f","#ffffff","#ffffff"],13:["#5b2a86","#b3151f","#b3151f",null],14:["#6b0f24","#f4f0e6","#f4f0e6",null],17:["#5b2a86","#5b2a86","#b99b5d",null],18:["#1c1c1c","#1c1c1c","#f4f0e6",null],19:["#f4f0e6","#f4f0e6","#b3151f","#f4f0e6"],20:["#1c1c1c","#2a4fa8","#2a4fa8","#1c1c1c"],21:["#1c1c1c","#1c1c1c","#d4a23a",null]};
+const nazSvg=c=>`<svg viewBox="0 0 100 135" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nazareno">${c[3]?`<path d="M30,52L70,52L88,130L12,130Z" fill="${c[3]}" stroke="#0005" stroke-width="1.2"/>`:""}<path d="M36,50L64,50L76,130L24,130Z" fill="${c[0]}" stroke="#0005" stroke-width="1.2"/><rect x="31" y="84" width="38" height="6" rx="2" fill="${c[2]}" stroke="#0004"/><path d="M50,3L63,50L37,50Z" fill="${c[1]}" stroke="#0005" stroke-width="1.2"/><ellipse cx="45" cy="34" rx="2.4" ry="1.5" fill="#000b"/><ellipse cx="55" cy="34" rx="2.4" ry="1.5" fill="#000b"/></svg>`;
+function tunQs(){const ids=Object.keys(TUN).map(Number).filter(i=>H[i-1]),nm=i=>H[i-1].n;
+ return ids.map(i=>({q:"¿De qué hermandad es esta túnica?",v:nazSvg(TUN[i]),a:nm(i),o:sh([nm(i),...sh(ids.filter(j=>j!==i)).slice(0,3).map(nm)]),e:(EXTRA[i]||{}).tunica||""}))}
+function mkQ(){const lv=qLv,B=sh(BK.filter(x=>!lv||x.l===lv)).map(mkB),G=sh(genQ()),T=sh(tunQs());let q;
+ if(lv===0)q=[...B.slice(0,6),...G.slice(0,2),...T.slice(0,2)];else if(lv===1)q=[...B.slice(0,8),...T.slice(0,2)];else q=[...B.slice(0,8),...G.slice(0,2)];
+ B.forEach(z=>{if(q.length<10&&!q.some(y=>y.q===z.q))q.push(z)});return sh(q).slice(0,10)}
+const dkey=d=>d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+const QD=()=>{try{return JSON.parse(localStorage.getItem("qd")||"{}")}catch(e){return{}}};
+function streakNow(){const d=QD(),n=new Date();return d.last===dkey(n)||d.last===dkey(new Date(n.getFullYear(),n.getMonth(),n.getDate()-1))?d.streak||0:0}
+function qStart(){OS.add("Trivial cofrade");qz={q:mkQ(),i:0,s:0,r:null};render()}
+function qTun(){OS.add("Trivial cofrade");qz={q:sh(tunQs()).slice(0,6),i:0,s:0,r:null};render()}
+function qDaily(){OS.add("Trivial cofrade");const d=QD(),n=new Date(),k=dkey(n),i=(Math.round((new Date(n.getFullYear(),n.getMonth(),n.getDate())-new Date(2026,0,1))/864e5)*17+5)%BK.length,done=d.d===k;
+ qz={q:[mkB(BK[i])],i:done?1:0,s:done&&d.ok?1:0,r:null,daily:1};render()}
+function qMenu(){qz=null;render()}
+function qAns(k){if(qz.r!=null)return;qz.r=k;const q=qz.q[qz.i],good=q.o[k]===q.a;if(good)qz.s++;
+ if(qz.daily){const d=QD(),n=new Date();let st=d.streak||0;if(good)st=d.last===dkey(new Date(n.getFullYear(),n.getMonth(),n.getDate()-1))?st+1:1;else st=0;
+  try{localStorage.setItem("qd",JSON.stringify({d:dkey(n),ok:good,streak:st,last:good?dkey(n):(d.last||"")}))}catch(e){}}
+ render()}
+function qNext(){qz.i++;qz.r=null;render()}
+function qShare(){share(qz.daily?"Pregunta del día cofrade ✝ Racha: "+streakNow()+" 🔥":"Saqué "+qz.s+"/"+qz.q.length+" en el trivial cofrade de la Semana Santa de Granada ✝")}
+function qzHtml(){const LB=["Mixto","Fácil","Medio","Difícil"];
+ if(!qz){const st=streakNow();return `<p>Pon a prueba lo que sabes de la Semana Santa, de Granada y de la tradición cofrade. Más de ${BK.length} preguntas con tres niveles.</p><div class="seg">${LB.map((n,i)=>`<button class="${qLv===i?"on":""}" onclick="qLv=${i};render()">${n}</button>`).join("")}</div><button class="btn" onclick="qStart()">🎯 Partida de 10 preguntas</button><button class="btn" onclick="qDaily()">📅 Pregunta del día${st?" · racha "+st+" 🔥":""}</button><button class="btn" onclick="qTun()">👘 Adivina la túnica (6)</button>`}
+ if(qz.i>=qz.q.length){const n=qz.q.length;
+  if(qz.daily){const st=streakNow();return `<h3>${qz.s?"¡Acertaste! ✅":"Hoy no ha podido ser ❌"}</h3><p>Racha: <b>${st}</b> ${st?"🔥":""}<br>Vuelve mañana para una pregunta nueva.</p><button class="btn" onclick="qShare()">📤 Compartir</button><button class="btn" onclick="qMenu()">↩ Menú</button>`}
+  const m=qz.s>=n-1?"¡Maestro cofrade! 🏆":qz.s>=Math.ceil(n*.7)?"¡Muy bien! 👏":qz.s>=Math.ceil(n*.4)?"Vas por buen camino 🙏":"Sigue aprendiendo 💪";
+  return `<h3>Resultado: ${qz.s} / ${n}</h3><p>${m}</p><button class="btn" onclick="${n===6?"qTun()":"qStart()"}">🔁 Repetir</button><button class="btn" onclick="qShare()">📤 Compartir</button><button class="btn" onclick="qMenu()">↩ Menú</button>`}
+ const q=qz.q[qz.i];
+ return `<p class="aviso">${qz.daily?"Pregunta del día":"Pregunta "+(qz.i+1)+" de "+qz.q.length+" · "+qz.s+" aciertos"}</p>${q.v?`<div class="tunv">${q.v}</div>`:""}<h3>${q.q}</h3>${q.o.map((o,k)=>`<button class="btn opt ${qz.r!=null?(o===q.a?"ok":k===qz.r?"ko":""):""}" onclick="qAns(${k})">${o}</button>`).join("")}${qz.r!=null?(q.e?`<p class="aviso">💡 ${q.e}</p>`:"")+'<button class="btn" onclick="qNext()">'+(qz.i+1>=qz.q.length?"Ver resultado":"Siguiente →")+"</button>":""}`}
+const LG=new Image();LG.src="logo-share.png";
+function drawLogo(x,cx,y,sz){if(LG.complete&&LG.naturalWidth){x.save();x.beginPath();x.arc(cx,y+sz/2,sz/2,0,7);x.clip();x.drawImage(LG,cx-sz/2,y,sz,sz);x.restore();x.strokeStyle="#d4a23a";x.lineWidth=4;x.beginPath();x.arc(cx,y+sz/2,sz/2,0,7);x.stroke()}else{x.fillStyle="#d4a23a";x.fillRect(cx-20,y+10,40,170);x.fillRect(cx-85,y+65,170,38)}}
+function wrap(x,t,px,y,w,lh){const ws=t.split(" ");let l="";ws.forEach(p=>{const n=l?l+" "+p:p;if(x.measureText(n).width>w&&l){x.fillText(l,px,y);y+=lh;l=p}else l=n});x.fillText(l,px,y);return y+lh}
+function imgH(id){const h=H.find(z=>z.id===id),c=document.createElement("canvas");c.width=1080;c.height=1350;const x=c.getContext("2d");
+ const g=x.createLinearGradient(0,0,1080,1350);g.addColorStop(0,"#8c1d38");g.addColorStop(1,"#3a0612");x.fillStyle=g;x.fillRect(0,0,1080,1350);
+ drawLogo(x,540,50,260);x.textAlign="center";
+ x.fillStyle="#f2cd6b";x.font="38px Georgia,serif";x.fillText(DIAS[h.dia].toUpperCase()+" · GRANADA 2027",540,350);
+ x.fillStyle="#fff";x.font="bold 80px Georgia,serif";let y=wrap(x,h.n,540,470,900,92);
+ x.fillStyle="#f2cd6b";x.font="bold 150px Georgia,serif";x.fillText(h.s.replace("~",""),540,y+120);x.font="38px Georgia,serif";x.fillStyle="#fff";x.fillText("HORA DE SALIDA",540,y+175);
+ x.font="42px Georgia,serif";y=wrap(x,"Sale de: "+h.t,540,y+270,880,56);
+ if(ok(h.ti)){x.fillStyle="#ffffffcc";x.font="italic 36px Georgia,serif";wrap(x,h.ti,540,y+40,880,48)}
+ x.fillStyle="#ffffffaa";x.font="32px Georgia,serif";x.fillText("Cofrade Granada",540,1300);
+ c.toBlob(async b=>{const f=new File([b],"cofrade-"+id+".png",{type:"image/png"});if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:h.n})}catch(e){}return}
+  const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=f.name;a.click()})}
+let obS=0;
+function onb(){let o=$("ob");if(!o){o=document.createElement("div");o.id="ob";document.body.appendChild(o)}const l=o.querySelector(".obc"),sc=l?l.scrollTop:0;
+ const P=[`<svg class="emb big" viewBox="0 0 200 230" aria-hidden="true"><use href="#emb"/></svg><h2>Tu Semana Santa de Granada</h2><p>Horarios, fichas, mapa y avisos en tu calendario. Todo en tu bolsillo y sin registrarte.</p>`,
+ `<h2>Elige tus hermandades</h2><p>Marca con ☆ las que no te quieras perder. Podrás cambiarlas cuando quieras.</p><div class="obl">${H.map(h=>`<div class="card"><div class="i" onclick="obTog(${h.id})"><b>${h.n}</b><small>${DIAS[h.dia]}</small></div><button class="b" onclick="obTog(${h.id})">${favs.includes(h.id)?"★":"☆"}</button></div>`).join("")}</div>`,
+ `<div class="logo big">🔔</div><h2>Todo listo</h2><p>Mira qué sale ahora, cuándo y por dónde pasa. En «Mi plan» puedes añadirlo a tu calendario con aviso.</p>`];
+ o.innerHTML=`<div class="obc">${P[obS]}</div><div class="obf"><button class="btn" onclick="obNext()">${obS<2?"Siguiente":"Empezar"}</button>${obS<2?'<button class="skip" onclick="obEnd()">Saltar</button>':""}</div>`;
+ const n=o.querySelector(".obc");if(n)n.scrollTop=sc}
+function obTog(id){favs=favs.includes(id)?favs.filter(z=>z!==id):[...favs,id];sv("favs",favs);onb()}
+function obNext(){if(obS<2){obS++;onb()}else obEnd()}
+function obEnd(){try{localStorage.setItem("ob","1")}catch(e){}const o=$("ob");o&&o.remove();render()}
+let WX=null,wxBusy=0;try{WX=JSON.parse(localStorage.getItem("wx")||"null")}catch(e){}
+const WE=c=>c===0?"☀️":c<=2?"🌤️":c===3?"☁️":c<=48?"🌫️":c<=57?"🌦️":c<=67?"🌧️":c<=77?"🌨️":c<=82?"🌧️":c<=86?"🌨️":"⛈️";
+function loadWx(){if(wxBusy||(WX&&Date.now()-WX.t<18e5))return;wxBusy=1;
+ fetch("https://api.open-meteo.com/v1/forecast?latitude=37.1773&longitude=-3.5986&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&hourly=precipitation_probability&timezone=Europe%2FMadrid&forecast_days=16")
+ .then(r=>r.json()).then(j=>{if(!j.daily)throw 0;WX={t:Date.now(),d:j.daily,h:j.hourly};try{localStorage.setItem("wx",JSON.stringify(WX))}catch(e){}wxBusy=0;if(tab==="ahora"&&!$("dlg").open)render()}).catch(()=>{wxBusy=0})}
+function wxHtml(){loadWx();if(!WX||!WX.d)return"";const d=WX.d,T=d.time,x=new Date(),p2=n=>String(n).padStart(2,"0"),td=x.getFullYear()+"-"+p2(x.getMonth()+1)+"-"+p2(x.getDate());
+ const SS=["Ramos","Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+ const kd=i=>Math.round((new Date(T[i]+"T12:00:00")-new Date(2027,2,21,12))/864e5);
+ let idx=T.map((_,i)=>i).filter(i=>kd(i)>=0&&kd(i)<=7);const sem=idx.length>=2;if(!sem)idx=T.map((_,i)=>i).slice(0,7);
+ const chips=idx.map(i=>{const r=d.precipitation_probability_max[i]||0,lab=sem?SS[kd(i)]:new Date(T[i]+"T12:00:00").toLocaleDateString("es",{weekday:"short"}).replace(".","");
+  return `<div class="wxd ${r>=50?"rain":""}"><span>${lab}</span><b>${WE(d.weather_code[i])}</b><small>${Math.round(d.temperature_2m_max[i])}°/${Math.round(d.temperature_2m_min[i])}°</small><em>💧${r}%</em></div>`}).join("");
+ let tarde="";if(T[0]===td){const H2=WX.h,m=Math.max(0,...H2.time.map((t,i)=>t.startsWith(td+"T")&&+t.slice(11,13)>=16?(H2.precipitation_probability[i]||0):0));
+  if(m>=40)tarde=`<div class="warn">☔ Esta tarde-noche hay hasta un ${m}% de probabilidad de lluvia: revisa las redes de tu hermandad antes de salir.</div>`}
+ const viejo=Date.now()-WX.t>108e5?`<p class="aviso">Datos de las ${new Date(WX.t).toLocaleTimeString("es",{hour:"2-digit",minute:"2-digit"})} (sin conexión).</p>`:"";
+ const lejos=!sem&&Math.ceil((RAMOS-x)/864e5)>16?`<p class="aviso">La previsión de la Semana Santa de 2027 aparecerá aquí cuando falten 16 días.</p>`:"";
+ return `<h2>${sem?"Tiempo en Semana Santa":"Tiempo en Granada"}</h2>${tarde}<div class="wxw">${chips}</div>${viejo}${lejos}`}
+function render(){map&&(map.remove(),map=null);document.body.style.fontSize=C.fs+"%";$("lb").textContent=C.l==="es"?"EN":"ES";
+ const th=C.th||"auto";if(th==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.setAttribute("data-theme",th);
+ pintaDias();
+ $("tabs").innerHTML=[["agenda","📋"],["ahora","🏠"],["plan","🗓"],["mapa","📍"],["mas","ℹ️"]].map(x=>`<button class="${x[0]===tab?'on':''}" onclick="tab='${x[0]}';render();anim();scrollTo(0,0)">${x[1]}<br>${t(x[0])}</button>`).join("");
+ $("main").innerHTML=alerta()+{agenda:vAgenda,ahora:vAhora,plan:vPlan,mapa:vMapa,mas:vMas}[tab]();
+ if(tab==="agenda"&&vw==="lista")filtra();if(tab==="mapa")initMapa()}
+cuenta();render();try{if(!localStorage.getItem("ob"))onb()}catch(e){}setInterval(()=>{if(["ahora","plan"].includes(tab)&&!$("dlg").open)render()},60000);
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script></body></html>
