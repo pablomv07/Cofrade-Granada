@@ -11,4 +11,4 @@ crons = ["0 * * * *"]
 
 [vars]
 VAPID_SUBJECT = "pabloyhugo2706@gmail,com"
-VAPID_PUBLIC = "BJBxbbrqydDrZsUp4r4TFwjQcRXSYi691JPAP5fU17gqAV_R_Uo3EA6twjTjvmjX7X0xHEfEH0ROtiTw36ALKrg"
+VAPID_PUBLIC = "BN7mLfneLjmX1QRuTTwOD6sZvfuMfSAop8bNZb6ZVOmQ4-NdKxOmmNqXCcuFVhojjPCzHnBjsuz_xnb_OVRJQtY"
