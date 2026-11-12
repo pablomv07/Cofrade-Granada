@@ -10,5 +10,5 @@ id = "20fdac8636a940dbb6308dc3440cd97e"
 crons = ["0 * * * *"]
 
 [vars]
-VAPID_SUBJECT = "pabloyhugo2706@gmail,com"
+VAPID_SUBJECT = "mailto:pabloyhugo2706@gmail.com"
 VAPID_PUBLIC = "BN7mLfneLjmX1QRuTTwOD6sZvfuMfSAop8bNZb6ZVOmQ4-NdKxOmmNqXCcuFVhojjPCzHnBjsuz_xnb_OVRJQtY"
