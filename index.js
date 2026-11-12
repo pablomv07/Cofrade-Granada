@@ -3,11 +3,14 @@
    - POST /unsub    la borra
    - POST /pending  (lo llama el service worker) devuelve y vacía los avisos pendientes
    - POST /test     envía un aviso de prueba
-   - cron (cada hora): tiempo (9h), salidas próximas (10h) y pregunta del día (10h), hora de Madrid */
+   - cron (cada hora): tiempo (0h, 9h, 14h y 17h), salidas próximas (10h) y trivial (12h), hora de Madrid */
 
 const RAMOS = [2027, 2, 21]; // 21 de marzo de 2027
 const DIAS = ["Domingo de Ramos", "Lunes Santo", "Martes Santo", "Miércoles Santo", "Jueves Santo", "Viernes Santo", "Sábado Santo", "Domingo de Resurrección"];
-const H_TIEMPO = 9, H_RESTO = 10, H_MAX = 21;
+const H_TIEMPO = [0, 9, 14, 17];
+const H_TRIVIA = 12;
+const H_RESTO = 10;
+const H_MAX = 23;
 
 const CORS = {
   "access-control-allow-origin": "*",
@@ -110,16 +113,18 @@ async function run(env) {
       rec.pend = rec.pend || [];
       const p = rec.p || {};
       let add = 0;
-      if (p.w !== 0 && hour >= H_TIEMPO && rec.sent.w !== date) {
+      if (p.w !== 0 && H_TIEMPO.includes(hour) && rec.sent[`w:${hour}`] !== date) {
         const m = await tiempoMsg(cache);
         if (m) { rec.pend.push(m); add++; }
-        rec.sent.w = date;
+        rec.sent[`w:${hour}`] = date;
       }
+
       if (p.u !== 0 && hour >= H_RESTO) {
         const m = proximasMsg(rec, date);
         if (m) { rec.pend.push(m); add++; }
       }
-      if (p.t !== 0 && hour >= H_RESTO && rec.sent.t !== date) {
+
+      if (p.t !== 0 && hour === H_TRIVIA && rec.sent.t !== date) {
         rec.pend.push(triviaMsg()); add++;
         rec.sent.t = date;
       }
