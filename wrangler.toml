@@ -4,11 +4,11 @@ compatibility_date = "2025-01-01"
 
 [[kv_namespaces]]
 binding = "SUBS"
-id = "PEGA_AQUI_EL_ID_DEL_KV"
+id = "20fdac8636a940dbb6308dc3440cd97e"
 
 [triggers]
 crons = ["0 * * * *"]
 
 [vars]
-VAPID_SUBJECT = "mailto:tu-correo@ejemplo.com"
-VAPID_PUBLIC = "PEGA_AQUI_LA_CLAVE_PUBLICA"
+VAPID_SUBJECT = "pabloyhugo2706@gmail,com"
+VAPID_PUBLIC = "BJBxbbrqydDrZsUp4r4TFwjQcRXSYi691JPAP5fU17gqAV_R_Uo3EA6twjTjvmjX7X0xHEfEH0ROtiTw36ALKrg"
