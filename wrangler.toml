@@ -1,0 +1,14 @@
+name = "cofrade-push"
+main = "index.js"
+compatibility_date = "2025-01-01"
+
+[[kv_namespaces]]
+binding = "SUBS"
+id = "PEGA_AQUI_EL_ID_DEL_KV"
+
+[triggers]
+crons = ["0 * * * *"]
+
+[vars]
+VAPID_SUBJECT = "mailto:tu-correo@ejemplo.com"
+VAPID_PUBLIC = "BAsrNfVnuKZ3x8BVk_GUGHV-j9v4H5M2pg453wMFPZPdf4MPFhnKxFuhSUuZdIYRRjtqJkZWzaAgywflKN7mVX0"
